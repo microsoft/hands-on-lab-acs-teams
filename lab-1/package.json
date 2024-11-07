@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "@azure/communication-calling": "^1.16.3",
+    "@azure/communication-common": "^2.2.1"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^11.0.0",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
+  }
+}
