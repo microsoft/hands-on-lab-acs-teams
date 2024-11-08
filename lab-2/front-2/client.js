@@ -2,6 +2,8 @@ import { CallClient } from "@azure/communication-calling";
 import { AzureCommunicationTokenCredential } from "@azure/communication-common";
 import { CommunicationIdentityClient } from "@azure/communication-identity";
 import { ChatClient } from "@azure/communication-chat";
+import "dotenv-safe/config.js";
+import { env } from "node:process";
 
 let call;
 let callAgent;
@@ -24,7 +26,7 @@ var messages = "";
 var chatThreadId = "";
 
 async function getToken() {
-  const response = await fetch("http://localhost:8080/token");
+  const response = await fetch(`${env["BACKEND_URL"]}/token`);
   const data = await response.json();
   return data.token;
 }
@@ -60,12 +62,13 @@ callButton.addEventListener("click", async () => {
 
     if (call.state === "Connected" && !chatThreadClient) {
       console.log("CONNECTED!");
-      const endpointUrl = "<URL>";
+      const endpointUrl = env["COMMUNICATION_SERVICES_ENDPOINT_URL"];
       chatClient = new ChatClient(
         endpointUrl,
         new AzureCommunicationTokenCredential(token)
       );
       chatThreadId = call.info?.threadId;
+      console.log("Chat thread ID: " + chatThreadId);
       chatThreadClient = chatClient.getChatThreadClient(chatThreadId);
 
       chatBox.style.display = "block";
