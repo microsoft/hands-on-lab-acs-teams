@@ -74,10 +74,12 @@ callButton.addEventListener("click", async () => {
     const videoOptions = localVideoStream ? { localVideoStreams: [localVideoStream] } : undefined;
     // call = await callAgent.join({ meetingLink: meetingLinkInput.value }, { videoOptions: videoOptions });
     console.log(meetingLinkInput.value);
-    call = await callAgent.join({ meetingLink: meetingLinkInput.value }, { videoOptions: videoOptions });
+    // call = await callAgent.join({ meetingLink: meetingLinkInput.value }, { videoOptions: videoOptions });
+    call = await callAgent.join({ meetingLink: meetingLinkInput.value }, { });
 
     // // Subscribe to the call's properties and events.
     console.log("Joining call with meeting link: " + meetingLinkInput.value);
+    startVideoButton.disabled = false;
 
   } catch(error)  {
     console.error(error);
@@ -201,6 +203,8 @@ startVideoButton.onclick = async () => {
   try {
       const localVideoStream = await createLocalVideoStream();
       await call.startVideo(localVideoStream);
+      startVideoButton.disabled = true;
+      stopVideoButton.disabled = false;
   } catch (error) {
       console.error(error);
   }
@@ -213,6 +217,8 @@ startVideoButton.onclick = async () => {
 stopVideoButton.onclick = async () => {
   try {
       await call.stopVideo(localVideoStream);
+      startVideoButton.disabled = false;
+      stopVideoButton.disabled = true;
   } catch (error) {
       console.error(error);
   }
