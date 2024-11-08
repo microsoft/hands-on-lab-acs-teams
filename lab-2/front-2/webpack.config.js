@@ -1,3 +1,5 @@
+const Dotenv = require("dotenv-webpack");
+
 module.exports = {
   devServer: {
     allowedHosts: "auto",
@@ -9,6 +11,7 @@ module.exports = {
   output: {
     filename: "bundle.js",
   },
+  plugins: [new Dotenv()],
   devtool: "inline-source-map",
   mode: "development",
 };

@@ -2,9 +2,6 @@ import { CallClient } from "@azure/communication-calling";
 import { AzureCommunicationTokenCredential } from "@azure/communication-common";
 import { CommunicationIdentityClient } from "@azure/communication-identity";
 import { ChatClient } from "@azure/communication-chat";
-import "dotenv-safe/config.js";
-import { env } from "node:process";
-
 let call;
 let callAgent;
 let chatClient;
@@ -24,9 +21,8 @@ const messageBox = document.getElementById("message-box");
 var userId = "";
 var messages = "";
 var chatThreadId = "";
-
 async function getToken() {
-  const response = await fetch(`${env["BACKEND_URL"]}/token`);
+  const response = await fetch(`${process.env.BACKEND_URL}/token`);
   const data = await response.json();
   return data.token;
 }
@@ -41,9 +37,14 @@ async function init() {
   callButton.disabled = false;
 
   console.log("Azure Communication Chat client created!");
+  const connectionStateCallback = (args) => {
+    console.log(args); // it will return an object with oldState and newState, each of having a value of either of 'Connected' | 'Disconnected'
+    // it will also return reason, either of 'invalidToken' | 'connectionIssue'
+  };
+  callAgent.on("connectionStateChanged", connectionStateCallback);
 }
 
-init();
+init().catch(console.error);
 
 callButton.addEventListener("click", async () => {
   // join with meeting link
@@ -54,15 +55,22 @@ callButton.addEventListener("click", async () => {
       "Could not join meeting - have you set your connection string?"
     );
   }*/
-  call = callAgent.join({ meetingLink: meetingLinkInput.value }, {});
 
+  try {
+    call = await callAgent.join({ meetingLink: meetingLinkInput.value }, {});
+  } catch {
+    throw new Error(
+      "Could not join meeting - have you set your connection string?"
+    );
+  }
   // Chat thread ID is provided from the call info, after connection.
   call.on("stateChanged", async () => {
     callStateElement.innerText = call.state;
 
     if (call.state === "Connected" && !chatThreadClient) {
       console.log("CONNECTED!");
-      const endpointUrl = env["COMMUNICATION_SERVICES_ENDPOINT_URL"];
+      //const endpointUrl = env["COMMUNICATION_SERVICES_ENDPOINT_URL"];
+      const endpointUrl = "<URL>";
       chatClient = new ChatClient(
         endpointUrl,
         new AzureCommunicationTokenCredential(token)
