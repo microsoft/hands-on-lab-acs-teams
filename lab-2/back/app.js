@@ -9,6 +9,7 @@ import logger from "morgan";
 import path from "path";
 import { fileURLToPath } from "url";
 import issueToken from "./routes/issueToken.js";
+import getEndpointUrl from "./routes/getEndpointUrl.js";
 // import refreshToken from './routes/refreshToken.js';
 // import getEndpointUrl from './routes/getEndpointUrl.js';
 // import userConfig from './routes/userConfig.js';
@@ -37,6 +38,7 @@ app.use("/favicon.ico", (req, res) => {
  */
 app.use("/token", cors(), issueToken);
 
+app.use("/getEndpointUrl", cors(), getEndpointUrl);
 // NOTE : A ne pas déplacer en haut, les routes doivent être déclarées avant la route par défaut
 app.use("/", (req, res) => {
   res.status(200);
