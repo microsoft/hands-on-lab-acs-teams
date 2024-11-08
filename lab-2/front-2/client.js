@@ -21,10 +21,16 @@ const messageBox = document.getElementById("message-box");
 var userId = "";
 var messages = "";
 var chatThreadId = "";
+
 async function getToken() {
   const response = await fetch(`${process.env.BACKEND_URL}/token`);
   const data = await response.json();
   return data.token;
+}
+async function getEndpointUrl() {
+  const response = await fetch(`${process.env.BACKEND_URL}/getEndpointUrl`);
+  const data = await response.json();
+  return data.endpoint;
 }
 
 async function init() {
@@ -70,7 +76,7 @@ callButton.addEventListener("click", async () => {
     if (call.state === "Connected" && !chatThreadClient) {
       console.log("CONNECTED!");
       //const endpointUrl = env["COMMUNICATION_SERVICES_ENDPOINT_URL"];
-      const endpointUrl = "<URL>";
+      const endpointUrl = await getEndpointUrl();
       chatClient = new ChatClient(
         endpointUrl,
         new AzureCommunicationTokenCredential(token)
