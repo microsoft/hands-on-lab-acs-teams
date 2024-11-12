@@ -28,6 +28,7 @@ export class UI {
     this.callStateElement.innerText = state;
     console.log("Dispatching state: ", state);
     switch (state) {
+      case "Disconnected":
       case "Idle":
         // Call
         this.hangUpButton.disabled = true;
