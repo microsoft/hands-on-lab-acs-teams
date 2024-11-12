@@ -5,11 +5,7 @@ import {
 } from "@azure/communication-calling";
 import { AzureCommunicationTokenCredential } from "@azure/communication-common";
 import { ChatClient } from "@azure/communication-chat";
-import {
-  getAcsCallingNumber,
-  getEndpointUrl,
-  getToken,
-} from "./utils/utils.js";
+import { getEndpointUrl, getPhoneNumber, getToken } from "./utils/utils.js";
 import { UI } from "./ui/ui.js";
 
 /** @typedef {import("@azure/communication-calling").Call} Call */
@@ -184,7 +180,9 @@ async function stopVideo(callAgent, gui) {
  * @param {gui} gui
  */
 async function startPhone(phoneNumber, callAgent, gui) {
+  const callingNumber = await getPhoneNumber();
+  console.log(`Calling from ${callingNumber} to ${phoneNumber}`);
   callAgent.startCall([{ phoneNumber }], {
-    alternateCallerId: { phoneNumber: "+33801150401" },
+    alternateCallerId: { phoneNumber: callingNumber },
   });
 }

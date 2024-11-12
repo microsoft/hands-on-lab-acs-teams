@@ -17,3 +17,13 @@ export async function getEndpointUrl() {
   const data = await response.json();
   return data.endpoint;
 }
+
+/**
+ *  Returns the first matched ACS phone number
+ * @returns {Promise<string>} - The phone number as string
+ */
+export async function getPhoneNumber() {
+  const response = await fetch(`${process.env.BACKEND_URL}/phone`);
+  const data = await response.json();
+  return data.number;
+}

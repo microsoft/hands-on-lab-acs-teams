@@ -10,6 +10,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import issueToken from "./routes/issueToken.js";
 import getEndpointUrl from "./routes/getEndpointUrl.js";
+import getPhoneNumber from "./routes/getPhoneNumber.js";
 // import refreshToken from './routes/refreshToken.js';
 // import getEndpointUrl from './routes/getEndpointUrl.js';
 // import userConfig from './routes/userConfig.js';
@@ -39,6 +40,8 @@ app.use("/favicon.ico", (req, res) => {
 app.use("/token", cors(), issueToken);
 
 app.use("/getEndpointUrl", cors(), getEndpointUrl);
+
+app.use("/phone", cors(), getPhoneNumber);
 // NOTE : Not to be moved to the top, routes must be declared before the default route
 app.use("/", (req, res) => {
   res.status(200);
