@@ -1,8 +1,3 @@
-import {
-  VideoStreamRenderer,
-  LocalVideoStream,
-  CallClient,
-} from "@azure/communication-calling";
 export class UI {
   constructor() {
     // Call UI elements
@@ -61,16 +56,12 @@ export class UI {
     this.messagesContainer.innerHTML = this.messages;
   }
 
-  toggleVideoButtons(isVideoOn) {
-    this.startVideoButton.disabled = isVideoOn;
-    this.stopVideoButton.disabled = !isVideoOn;
-  }
-
   async displayLocalVideo(localRenderer) {
     this.localVideoStreamRenderer = localRenderer;
     const view = await this.localVideoStreamRenderer.createView();
 
-    this.toggleVideoButtons(true);
+    this.startVideoButton.disabled = true;
+    this.stopVideoButton.disabled = false;
     this.localVideoContainer.hidden = false;
     this.localVideoContainer.appendChild(view);
   }
@@ -78,7 +69,8 @@ export class UI {
   async hideLocalVideo() {
     this.localVideoStreamRenderer.dispose();
 
-    this.toggleVideoButtons(false);
+    this.startVideoButton.disabled = false;
+    this.stopVideoButton.disabled = true;
     this.localVideoContainer.innerHTML = "";
     this.localVideoContainer.hidden = true;
   }
