@@ -9,6 +9,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
   },
   devServer: {
+    port: 8081,
     static: {
       directory: path.join(__dirname, "./"),
     },

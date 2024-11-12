@@ -52,8 +52,7 @@ initializeCallAgentButton.onclick = async () => {
 
     // Set up a camera device to use.
     deviceManager = await callClient.getDeviceManager();
-    await deviceManager.askDevicePermission({ video: true });
-    await deviceManager.askDevicePermission({ audio: true });
+    await deviceManager.askDevicePermission({ video: true, audio: true });
 
     // Listen for an incoming call to accept.
     callAgent.on("incomingCall", async (args) => {
@@ -117,6 +116,39 @@ acceptCallButton.onclick = async () => {
     console.error(error);
   }
 };
+
+/**
+ * Start your local video stream.
+ * This will send your local video stream to remote participants so they can view it.
+ */
+startVideoButton.onclick = async () => {
+  try {
+    const localVideoStream = await createLocalVideoStream();
+    await call.startVideo(localVideoStream);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * Stop your local video stream.
+ * This will stop your local video stream from being sent to remote participants.
+ */
+stopVideoButton.onclick = async () => {
+  try {
+    await call.stopVideo(localVideoStream);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+/**
+ * End current call
+ */
+hangUpCallButton.addEventListener("click", async () => {
+  // end the current call
+  await call.hangUp();
+});
 
 /**
  * Subscribe to a call obj.
@@ -195,6 +227,12 @@ subscribeToCall = (call) => {
   }
 };
 
+/**
+ *
+ * ======================================================================
+ *                               UTILS
+ * ======================================================================
+ */
 /**
  * Subscribe to a remote participant obj.
  * Listen for property changes and collection udpates.
@@ -295,31 +333,6 @@ subscribeToRemoteVideoStream = async (remoteVideoStream) => {
 };
 
 /**
- * Start your local video stream.
- * This will send your local video stream to remote participants so they can view it.
- */
-startVideoButton.onclick = async () => {
-  try {
-    const localVideoStream = await createLocalVideoStream();
-    await call.startVideo(localVideoStream);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-/**
- * Stop your local video stream.
- * This will stop your local video stream from being sent to remote participants.
- */
-stopVideoButton.onclick = async () => {
-  try {
-    await call.stopVideo(localVideoStream);
-  } catch (error) {
-    console.error(error);
-  }
-};
-
-/**
  * To render a LocalVideoStream, you need to create a new instance of VideoStreamRenderer, and then
  * create a new VideoStreamRendererView instance using the asynchronous createView() method.
  * You may then attach view.target to any UI element.
@@ -358,11 +371,3 @@ removeLocalVideoStream = async () => {
     console.error(error);
   }
 };
-
-/**
- * End current call
- */
-hangUpCallButton.addEventListener("click", async () => {
-  // end the current call
-  await call.hangUp();
-});
