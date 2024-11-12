@@ -71,8 +71,6 @@ You will use this convention for the rest of the scenario:
 
 </div>
 
-# Prerequisites
-
 ## Dev Environment Setup
 
 To retrieve the lab content :
@@ -185,20 +183,7 @@ az provider register --namespace 'Microsoft.Communication'
 
 </details>
 
-[az-cli-install]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
-[az-naming-convention]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming
-[az-abrevation]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
-[az-portal]: https://portal.azure.com
-[vs-code]: https://code.visualstudio.com/
-[docker-desktop]: https://www.docker.com/products/docker-desktop/
-[Repo-fork]: https://github.com/microsoft/hands-on-lab-acs-teams/fork
-[git-client]: https://git-scm.com/downloads
-[github-account]: https://github.com/join
-[download-node]: https://nodejs.org/en
-
----
-
-# Lab 0 - Create an Azure Communication Services resource
+## Create an Azure Communication Services resource
 
 In this lab, you will create an Azure Communication Services resource to enable communication capabilities in your application.
 
@@ -219,6 +204,17 @@ Make sure to select the right subscription and resource group or create one, and
 ![create-acs](./assets/create-acs-resource.png)
 
 </details>
+
+[az-cli-install]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
+[az-naming-convention]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming
+[az-abrevation]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
+[az-portal]: https://portal.azure.com
+[vs-code]: https://code.visualstudio.com/
+[docker-desktop]: https://www.docker.com/products/docker-desktop/
+[Repo-fork]: https://github.com/microsoft/hands-on-lab-acs-teams/fork
+[git-client]: https://git-scm.com/downloads
+[github-account]: https://github.com/join
+[download-node]: https://nodejs.org/en
 
 ---
 
