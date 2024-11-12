@@ -39,7 +39,7 @@ app.use("/favicon.ico", (req, res) => {
 app.use("/token", cors(), issueToken);
 
 app.use("/getEndpointUrl", cors(), getEndpointUrl);
-// NOTE : A ne pas déplacer en haut, les routes doivent être déclarées avant la route par défaut
+// NOTE : Not to be moved to the top, routes must be declared before the default route
 app.use("/", (req, res) => {
   res.status(200);
   res.end("Everything is OK, but there is nothing to see here");

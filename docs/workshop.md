@@ -196,6 +196,8 @@ az provider register --namespace 'Microsoft.Communication'
 [github-account]: https://github.com/join
 [download-node]: https://nodejs.org/en
 
+---
+
 # Lab 0 - Create an Azure Communication Services resource
 
 In this lab, you will create an Azure Communication Services resource to enable communication capabilities in your application.
@@ -218,21 +220,199 @@ Make sure to select the right subscription and resource group or create one, and
 
 </details>
 
+---
+
 # Lab 1 - Create a call between two ACS users
 
 In this lab, you will create a call between two users using Azure Communication Services.
 
 To start this lab you will use the code inside `src/add-1-on-1-acs`
 
+---
+
 # Lab 2 - Interact with Azure Communication Services and Microsoft Teams
 
-## Create a server
+In this lab, you will create a real world scenario where you have a backend that interacts with Azure Communication Services and a basic frontend.
 
-## Create a chat
+To start this lab you will use the code inside `src/acs-to-external`.
+
+## Prepare the backend server
+
+The role of the server is to interract with Azure Communication Services to create a chat, a call or a video call. The server will also be responsible to create authentification for users and provide Azure Communication Services endpoint.
+
+### Provide user token
+
+Inside the `src/acs-to-external/back/svc` folder, you will find a `createUserAndToken.js` file. This file contains a method to create a user access token for chat and VOIP.
+
+The goal of this method is to create an equivalent of the processed you did in the first lab to create a user access token inside the **Identities & User Access Tokens** tab of the Azure Communication Services resource. By calling this method, you will be able to create a user access token for chat and VOIP.
+
+<div class="task" data-title="Task">
+
+> Implement the `createUserAndToken` method to create a user access token for chat and VOIP.
+> Test it with Postman or any other API client.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+To achieve this, you will need to use the `@azure/communication-identity` package.
+
+```javascript
+export async function createUserAndToken(scopes) {
+  const client = new CommunicationIdentityClient(env["ACS_CONNECTION_STRING"]);
+  return client.createUserAndToken(scopes);
+}
+```
+
+### Add the Azure Communication Services connection string
+
+Inside the `src/acs-to-external/back` folder, you will find a `.env.example` file. Rename this file to `.env` and fill in the `ACS_CONNECTION_STRING` with the connection string of your Azure Communication Services resource.
+
+You can find it in **Settings** > **Keys** tab of your Azure Communication Services resource:
+
+![create-acs](./assets/acs-connection-string.png)
+
+### Test the method
+
+You can now start the server by running the following commands:
+
+```bash
+cd src/acs-to-external/back
+
+npm install
+
+npm start
+```
+
+To check if the server is running, you can go to `http://localhost:8080` in your browser and try to call the `/getEndpointUrl` endpoint which is defined in the `src/acs-to-external/back/app.js` file.
+
+</details>
+
+## Prepare the frontend
+
+Now that you have a backend server running, you can create a chat between two users. In this lab you will create a chat between an Azure Communication Services user and a Microsoft Teams user.
+
+You can find the frontend code of a basic chat inside the `src/acs-to-external/front` folder. The frontend is a simple HTML page with a chat box and a form to send messages.
+
+The next step is to connect the frontend to the backend.
+
+<div class="task" data-title="Task">
+
+> Inside the `src/acs-to-external/front/client.js` file, implement the `main` method to create a `callClient`, `callAgent` and `chatClient` objects.
+> Use the methods inside the `src/acs-to-external/front/utils` folder in the `utils.js` file to initiate those objects.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+The `main` method should look like this:
+
+```javascript
+async function main() {
+  const callClient = new CallClient();
+  const creds = new AzureCommunicationTokenCredential(await getToken());
+
+  const callAgent = await callClient.createCallAgent(creds, {
+    displayName: "ACS user",
+  });
+  const chatClient = new ChatClient(await getEndpointUrl(), creds);
+
+  const deviceManager = await callClient.getDeviceManager();
+  await deviceManager.askDevicePermission({ video: true, audio: true });
+  await registerEvents(callAgent, chatClient, deviceManager);
+}
+```
+
+The `callClient` is responsible of creating the connection between an Azure Communication Services and your frontend.
+The `callAgent` is responsible of creating a call between two users. The `chatClient` is responsible of creating a chat between two users.
+
+You will use those different objects in the next steps to create a call, a video call and a chat.
+
+</details>
 
 ## Create a call
 
+Next step is to create a call between two users: An Azure Communication Services user and a Microsoft Teams user.
+
+The file where you will find the code to interract with the backend is `src/acs-to-external/front/client.js` file to create a call between two users.
+
+<div class="task" data-title="Task">
+
+> Implement the `startCall` method to create a call between two users.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+### Test the call
+
+Inside the `src/acs-to-external/front` folder, you will find a `.env.example` file. Rename this file to `.env` and fill in the `BACKEND_URL` with the URL of your backend server which is `http://localhost:8080` by default.
+
+You can now start the frontend by running the following commands:
+
+```bash
+cd src/acs-to-external/front
+
+npm install
+
+npm start
+```
+
+To check if the frontend is running, you can go to `http://localhost:8081` in your browser.
+
+Now you can create a Teams meeting and pass the invitation link that will start with `https://teams.microsoft.com/l/meetup-join/...`. You will be able to join the call by clicking on the `Start Call` button.
+
+</details>
+
+## Create a chat
+
+Next step is to create a chat between two users: An Azure Communication Services user and a Microsoft Teams user.
+
+You will continue to use the code inside the `src/acs-to-external/front/client.js` file to create a chat between two users.
+
+<div class="task" data-title="Task">
+
+> Implement the `sendMessage` method to create a chat between two users.
+> Set the sender name as you want
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+### Add the sendMessage method
+
+The `sendMessage` method should look like this:
+
+```javascript
+async function sendMessage(chatThreadClient, content) {
+  const opt = { senderDisplayName: "Jack" };
+  await chatThreadClient.sendMessage({ content }, opt);
+}
+```
+
+As you can see, the `sendMessage` method takes a `chatThreadClient` object and a `content` parameter. The `senderDisplayName` is the name of the user who sends the message. To keep it simple, we set it to `Jack` but in a real world scenario, you would get the name of the user from a database that will do the mapping between the Azure Communication Services user and the frontend user.
+
+### Test the chat
+
+You can now start the frontend again by running the following commands:
+
+```bash
+cd src/acs-to-external/front
+
+npm start
+```
+
+Go back to `http://localhost:8081` in your browser and once again start a Teams meeting, it can be the same one you used for the call. You will be able to send a message by clicking on the `Send` button.
+
+</details>
+
 ## Create a video call
+
+---
 
 # Lab 3 - Call a phone number
 
