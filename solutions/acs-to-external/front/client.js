@@ -5,7 +5,11 @@ import {
 } from "@azure/communication-calling";
 import { AzureCommunicationTokenCredential } from "@azure/communication-common";
 import { ChatClient } from "@azure/communication-chat";
-import { getEndpointUrl, getToken } from "./utils/utils.js";
+import {
+  getAcsCallingNumber,
+  getEndpointUrl,
+  getToken,
+} from "./utils/utils.js";
 import { UI } from "./ui/ui.js";
 
 /** @typedef {import("@azure/communication-calling").Call} Call */
@@ -41,11 +45,14 @@ async function registerEvents(callAgent, chatClient, deviceManager) {
   gui.dispatch("Idle");
 
   // Call
-  gui.callButton.addEventListener("click", () =>
-    startCall(callAgent, chatClient, gui)
-  );
+  gui.callButton.addEventListener("click", async () => {
+    const meetingLink = gui.meetingLinkInput.value;
+    await startCall(meetingLink, callAgent, chatClient, gui);
+    const call = callAgent.calls?.[0];
+    call.on("stateChanged", () => updateUi(gui, call));
+  });
   gui.hangUpButton.addEventListener("click", async () => {
-    await endCall(callAgent, chatClient);
+    await hangsUp(callAgent, chatClient);
     await gui.dispatch("Idle");
   });
 
@@ -65,24 +72,39 @@ async function registerEvents(callAgent, chatClient, deviceManager) {
   gui.stopVideoButton.addEventListener("click", () =>
     stopVideo(callAgent, gui)
   );
+
+  // Phone
+  gui.startPhoneButton.addEventListener("click", async () => {
+    const phoneNumber = gui.phoneInput.value;
+    await startPhone(phoneNumber, callAgent, gui);
+    const call = callAgent.calls?.[0];
+    call.on("stateChanged", () => updateUi(gui, call));
+  });
+
+  gui.stopPhoneButton.addEventListener("click", async () => {
+    await hangsUp(callAgent, chatClient);
+    await gui.dispatch("Idle");
+  });
+}
+
+async function updateUi(gui, call) {
+  console.log(`Call state changed: ${call.state}`);
+  gui.dispatch(call.state);
 }
 
 main().catch(console.error);
 
 /**
  *  Starts the call, creating the audio and chat session.
+ * @param {string} meetingLink
  * @param {CallAgent} callAgent
  * @param {ChatClient} chatClient
  * @param {UI} gui
  */
-async function startCall(callAgent, chatClient, gui) {
-  const meetingLink = gui.meetingLinkInput.value;
+async function startCall(meetingLink, callAgent, chatClient, gui) {
   const call = await callAgent.join({ meetingLink }, {});
 
   call.on("stateChanged", async () => {
-    console.log(`Call state changed: ${call.state}`);
-    gui.dispatch(call.state);
-
     let isFirstConnection = true;
     if (call.state === "Connected" && isFirstConnection) {
       isFirstConnection = false;
@@ -97,11 +119,11 @@ async function startCall(callAgent, chatClient, gui) {
 }
 
 /**
- * Stops the call, ending the audio and chat session.
+ * Stops any call type, ending both the audio (teams/phone) call and chat session if it exists.
  * @param {CallAgent} callAgent
  * @param {ChatClient} chatClient
  */
-async function endCall(callAgent, chatClient) {
+async function hangsUp(callAgent, chatClient) {
   await callAgent.calls?.[0]?.hangUp();
   chatClient.stopRealtimeNotifications();
 }
@@ -153,4 +175,16 @@ async function stopVideo(callAgent, gui) {
   // Stop sending video stream to remote
   const call = callAgent.calls?.[0];
   await call.stopVideo(localVideoStream);
+}
+
+/**
+ * Starts a phone call to the given phone number.
+ * @param {string} phoneNumber
+ * @param {CallAgent} callAgent
+ * @param {gui} gui
+ */
+async function startPhone(phoneNumber, callAgent, gui) {
+  callAgent.startCall([{ phoneNumber }], {
+    alternateCallerId: { phoneNumber: "+33801150401" },
+  });
 }

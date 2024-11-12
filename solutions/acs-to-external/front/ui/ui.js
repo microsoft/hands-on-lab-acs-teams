@@ -17,6 +17,11 @@ export class UI {
     this.startVideoButton = document.getElementById("start-video-button");
     this.stopVideoButton = document.getElementById("stop-video-button");
     this.localVideoContainer = document.getElementById("localVideoContainer");
+
+    // Phone UI elements
+    this.startPhoneButton = document.getElementById("call-phone-button");
+    this.stopPhoneButton = document.getElementById("hang-up-phone-button");
+    this.phoneInput = document.getElementById("callee-phone-input");
   }
 
   async dispatch(state) {
@@ -34,6 +39,10 @@ export class UI {
         // Video
         this.startVideoButton.disabled = true;
         this.stopVideoButton.disabled = true;
+
+        // Phone
+        this.startPhoneButton.disabled = false;
+        this.stopPhoneButton.disabled = true;
         break;
       case "Connected":
         // Call
@@ -41,11 +50,18 @@ export class UI {
         this.hangUpButton.disabled = false;
 
         // Chat
-        this.chatBox.style.display = "block";
-        this.messagesContainer.innerHTML = this.messages;
+        if (this.meetingLinkInput.value != "") {
+          this.chatBox.style.display = "block";
+          this.messagesContainer.innerHTML = this.messages;
 
-        // Video
-        this.startVideoButton.disabled = false;
+          // Video
+          this.startVideoButton.disabled = false;
+        } else {
+          // Phone
+          this.startPhoneButton.disabled = true;
+          this.stopPhoneButton.disabled = false;
+        }
+
         break;
     }
   }
