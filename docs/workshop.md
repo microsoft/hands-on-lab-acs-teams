@@ -387,7 +387,7 @@ npm start
 
 To check if the frontend is running, you can go to `http://localhost:8081` in your browser.
 
-Now you can create a Teams meeting and pass the invitation link that will start with `https://teams.microsoft.com/l/meetup-join/...`. You will be able to join the call by clicking on the `Start Call` button.
+Now you can create a Teams meeting and pass the invitation link that will start with `https://teams.microsoft.com/l/meetup-join/...`. You will be able to join the call by clicking on the `Join Teams Meeting` button.
 
 </details>
 
@@ -546,7 +546,11 @@ Go back to `http://localhost:8081` in your browser and once again start a Teams 
 
 # Lab 3 - Call a phone number
 
-Let's use the Azure Communication Services to call a phone number. First step is to go to the Azure Communication Services resource you created in the first lab and inside the `Phone Numbers` tab, you will need to buy a phone number.
+Now let's use the Azure Communication Services to call a phone number. In this lab, you will create a call between your frontend application and a phone number.
+
+## Buy a phone number
+
+First step is to go to the Azure Communication Services resource you created in the first lab and inside the `Phone Numbers` tab, you will need to buy a phone number.
 
 <div class="task" data-title="Task">
 
@@ -561,7 +565,50 @@ Click on the `+ Get` button to buy a new phone number. Select a country and the 
 
 Select one of the available phone numbers and click on add `Add to cart`. Click on `Review + buy` and then `Buy`.
 
+You should now have a phone number in the `Phone Numbers` tab:
+
+![Phone Number list](./assets/acs-phone-number-list.png)
+
 </details>
+
+## Add the phone call method
+
+Now that you have a phone number, you can create a call between your frontend application and this phone number.
+
+You will continue to use the code inside the `src/acs-to-external/front/client.js` file.
+
+<div class="task" data-title="Task">
+
+> Implement the `startPhone` method to create a call between your frontend application and the phone number you just bought.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+The `startPhone` method should look like this:
+
+```javascript
+async function startPhone(phoneNumber, callAgent, gui) {
+  callAgent.startCall([{ phoneNumber }], {
+    alternateCallerId: { phoneNumber: "YOUR_ACS_NUMBER" },
+  });
+}
+```
+
+As you can see, the `startPhone` method takes a `phoneNumber` parameter, which should start with the country code for instance `+33` for France or `+1` for US. The `phoneNumber` is the phone number you just bought, it should also start with the country code exactly like in the Azure Communication Services resource.
+
+## Test the phone call
+
+You can now start the frontend again by running the following commands:
+
+```bash
+cd src/acs-to-external/front
+
+npm start
+```
+
+Go back to `http://localhost:8081` in your browser, enter a phone number with the country code and click on the `Start Call` button. You should receive a call from the phone number you just bought.
 
 ---
 
