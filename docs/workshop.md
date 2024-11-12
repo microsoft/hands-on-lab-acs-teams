@@ -340,12 +340,36 @@ The file where you will find the code to interract with the backend is `src/acs-
 
 <div class="task" data-title="Task">
 
-> Implement the `startCall` method to create a call between two users.
+> Implement the `startCall` and the `hangsUp` method to create a call between two users.
 
 </div>
 
 <details>
 <summary>Toggle solution</summary>
+
+### Add the call method
+
+The `startCall` method should look like this:
+
+```javascript
+async function startCall(meetingLink, callAgent, chatClient, gui) {
+  const call = await callAgent.join({ meetingLink }, {});
+}
+```
+
+As you can see, the `startCall` method takes a `meetingLink` parameter, a `callAgent` object. The `meetingLink` is the link of the Teams meeting you want to join. The `callAgent` is the object that will create the call.
+
+It's as simple as that to create a call between two users.
+
+### Add the hangUp method
+
+The `hangUp` method should look like this:
+
+```javascript
+async function hangsUp(callAgent, chatClient) {
+  await callAgent.calls?.[0]?.hangUp();
+}
+```
 
 ### Test the call
 
@@ -375,15 +399,16 @@ You will continue to use the code inside the `src/acs-to-external/front/client.j
 
 <div class="task" data-title="Task">
 
-> Implement the `sendMessage` method to create a chat between two users.
-> Set the sender name as you want
+> Implement the `sendMessage` method to create a chat between two users. Set the sender name as you want
+> Update the `startCall` method to listen to the `chatMessageReceived` event to receive the messages of this call.
+> Update the `hangsUp` method to stop the chat notifications.
 
 </div>
 
 <details>
 <summary>Toggle solution</summary>
 
-### Add the sendMessage method
+### Add / Update the chat methods
 
 The `sendMessage` method should look like this:
 
@@ -395,6 +420,31 @@ async function sendMessage(chatThreadClient, content) {
 ```
 
 As you can see, the `sendMessage` method takes a `chatThreadClient` object and a `content` parameter. The `senderDisplayName` is the name of the user who sends the message. To keep it simple, we set it to `Jack` but in a real world scenario, you would get the name of the user from a database that will do the mapping between the Azure Communication Services user and the frontend user.
+
+In the `startCall` method, you will need to add a listener to the messages of this call:
+
+```javascript
+call.on("stateChanged", async () => {
+  let isFirstConnection = true;
+  if (call.state === "Connected" && isFirstConnection) {
+    isFirstConnection = false;
+
+    await chatClient.startRealtimeNotifications();
+    chatClient.on("chatMessageReceived", (e) => {
+      const isOwnMessage = e.sender.communicationUserId === "";
+      gui.renderMessage(e.message, isOwnMessage);
+    });
+  }
+});
+```
+
+As you can see, we listen to the `chatMessageReceived` event and render the message in the chat box using the `startRealtimeNotifications` method.
+
+In the `hangsUp` method, you will also need to stop the notifications by adding the following line:
+
+```javascript
+chatClient.stopRealtimeNotifications();
+```
 
 ### Test the chat
 
@@ -411,6 +461,86 @@ Go back to `http://localhost:8081` in your browser and once again start a Teams 
 </details>
 
 ## Create a video call
+
+In this lab you will add the possibility to create a video call between two users: An Azure Communication Services user and a Microsoft Teams user.
+
+You will continue to use the code inside the `src/acs-to-external/front/client.js` file.
+
+<div class="task" data-title="Task">
+
+> Implement the `startVideo` method to create a video call between two users.
+> Implement the `stopVideo` method to stop the video call.
+> The access to the camera was already asked in the `main` method for you. You will just use it with the `deviceManager` object.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+### Add the video call methods
+
+The `startVideo` method should look like this:
+
+```javascript
+async function startVideo(callAgent, deviceManager, gui) {
+  const cameras = await deviceManager.getCameras();
+  if (cameras.length <= 0) {
+    throw new Error("No camera device found on the system");
+  }
+
+  // Local video loopback
+  localVideoStream = new LocalVideoStream(cameras[0]);
+  const renderer = new VideoStreamRenderer(localVideoStream);
+  gui.displayLocalVideo(renderer);
+
+  // Sending video stream to remote
+  const call = callAgent.calls?.[0];
+  if (!call) {
+    throw new Error("No call found");
+  }
+  await call.startVideo(localVideoStream);
+}
+```
+
+The `startVideo` function is an asynchronous function designed to initialize and start a video stream using a camera device. Here's a step-by-step explanation:
+
+- **Retrieve Cameras:** The function first retrieves a list of available camera devices using the deviceManager. This is done asynchronously.
+
+- **Check for Cameras:** It checks if any cameras are available. If no cameras are found, it throws an error indicating that no camera device is found on the system.
+
+- **Local Video Loopback:** If a camera is available, it creates a local video stream using the first camera in the list. It then creates a video stream renderer for this local video stream and displays it on the browser.
+
+- **Sending Video Stream to Remote:** The function retrieves the first call from the callAgent. If no call is found, it throws an error indicating that no call is found. If a call is found, it starts sending the local video stream to the remote participant in the call.
+
+The `stopVideo` method should look like this:
+
+```javascript
+async function stopVideo(callAgent, gui) {
+  // Local video
+  await gui.hideLocalVideo();
+
+  // Stop sending video stream to remote
+  const call = callAgent.calls?.[0];
+  await call.stopVideo(localVideoStream);
+}
+```
+
+The `stopVideo` function is an asynchronous function designed to stop the local video stream and stop sending it to a remote participant.
+
+- **Hide Local Video**: It hides the local video stream from the GUI.
+- **Stop Sending Video Stream to Remote**: It retrieves the first call from the `callAgent`. If a call is found, it stops sending the local video stream to the remote participant by calling `stopVideo` method.
+
+### Test the video call
+
+You can now start the frontend again by running the following commands:
+
+```bash
+cd src/acs-to-external/front
+
+npm start
+```
+
+Go back to `http://localhost:8081` in your browser and once again start a Teams meeting, it can be the same one you used for the call. You will be able to see you in the video call by clicking on the `Start Video` button.
 
 ---
 
