@@ -11,6 +11,8 @@ import { fileURLToPath } from "url";
 import issueToken from "./routes/issueToken.js";
 import getEndpointUrl from "./routes/getEndpointUrl.js";
 import getPhoneNumber from "./routes/getPhoneNumber.js";
+import identifyUserFactory from "./routes/identify.js";
+import { inMemory } from "./storage/inMemory.js";
 // import refreshToken from './routes/refreshToken.js';
 // import getEndpointUrl from './routes/getEndpointUrl.js';
 // import userConfig from './routes/userConfig.js';
@@ -20,6 +22,9 @@ import getPhoneNumber from "./routes/getPhoneNumber.js";
 // import addUserToRoom from './routes/addUserToRoom.js';
 
 const app = express();
+
+// DI
+const storage = inMemory();
 
 // Handle __dirname in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -42,6 +47,9 @@ app.use("/token", cors(), issueToken);
 app.use("/getEndpointUrl", cors(), getEndpointUrl);
 
 app.use("/phone", cors(), getPhoneNumber);
+
+app.use("/login", cors(), identifyUserFactory(storage));
+
 // NOTE : Not to be moved to the top, routes must be declared before the default route
 app.use("/", (req, res) => {
   res.status(200);
