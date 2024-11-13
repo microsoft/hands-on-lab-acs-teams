@@ -444,6 +444,8 @@ export async function createUserAndToken(scopes) {
 }
 ```
 
+</details>
+
 ### Test the method
 
 You can now start the server by running the following commands:
@@ -457,8 +459,6 @@ npm start
 ```
 
 To check if the server is running, you can go to `http://localhost:8080` in your browser and try to call the `/getEndpointUrl` endpoint which is defined in the `src/acs-to-external/back/app.js` file.
-
-</details>
 
 ## Prepare the frontend
 
@@ -513,18 +513,24 @@ You will use those different objects in the next steps to create a call, a video
 
 Next step is to create a call between two users: An Azure Communication Services user and a Microsoft Teams user.
 
+### Add the call method
+
 The file where you will find the code to interract with the backend is `src/acs-to-external/front/client.js` file to create a call between two users.
 
 <div class="task" data-title="Task">
 
-> Implement the `startCall` and the `hangsUp` method to create a call between two users.
+> Implement the `startCall` method to create a call between two users.
+
+</div>
+
+<div class="tip" data-title="Tips">
+
+> You can find how to create a call between two users in this [documentation][acs-teams-call]
 
 </div>
 
 <details>
 <summary>Toggle solution</summary>
-
-### Add the call method
 
 The `startCall` method should look like this:
 
@@ -538,7 +544,18 @@ As you can see, the `startCall` method takes a `meetingLink` parameter, a `callA
 
 It's as simple as that to create a call between two users.
 
+</details>
+
 ### Add the hangUp method
+
+<div class="task" data-title="Task">
+
+> Implement the `hangsUp` method to create close the call between two users.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
 
 The `hangUp` method should look like this:
 
@@ -547,6 +564,8 @@ async function hangsUp(callAgent, chatClient) {
   await callAgent.calls?.[0]?.hangUp();
 }
 ```
+
+</details>
 
 ### Test the call
 
@@ -566,11 +585,11 @@ To check if the frontend is running, you can go to `http://localhost:8081` in yo
 
 Now you can create a Teams meeting and pass the invitation link that will start with `https://teams.microsoft.com/l/meetup-join/...`. You will be able to join the call by clicking on the `Join Teams Meeting` button.
 
-</details>
-
 ## Create a chat
 
 Next step is to create a chat between two users: An Azure Communication Services user and a Microsoft Teams user.
+
+### Add / Update the chat methods
 
 You will continue to use the code inside the `src/acs-to-external/front/client.js` file to create a chat between two users.
 
@@ -590,8 +609,6 @@ You will continue to use the code inside the `src/acs-to-external/front/client.j
 
 <details>
 <summary>Toggle solution</summary>
-
-### Add / Update the chat methods
 
 The `sendMessage` method should look like this:
 
@@ -628,6 +645,8 @@ In the `hangsUp` method, you will also need to stop the notifications by adding 
 chatClient.stopRealtimeNotifications();
 ```
 
+</details>
+
 ### Test the chat
 
 You can now start the frontend again by running the following commands:
@@ -640,11 +659,11 @@ npm start
 
 Go back to `http://localhost:8081` in your browser and once again start a Teams meeting, it can be the same one you used for the call. You will be able to send a message by clicking on the `Send` button.
 
-</details>
-
 ## Create a video call
 
 In this lab you will add the possibility to create a video call between two users: An Azure Communication Services user and a Microsoft Teams user.
+
+### Add the video call methods
 
 You will continue to use the code inside the `src/acs-to-external/front/client.js` file.
 
@@ -671,8 +690,6 @@ You will continue to use the code inside the `src/acs-to-external/front/client.j
 
 <details>
 <summary>Toggle solution</summary>
-
-### Add the video call methods
 
 The `startVideo` method should look like this:
 
@@ -725,6 +742,8 @@ The `stopVideo` function is an asynchronous function designed to stop the local 
 - **Hide Local Video**: It hides the local video stream from the GUI.
 - **Stop Sending Video Stream to Remote**: It retrieves the first call from the `callAgent`. If a call is found, it stops sending the local video stream to the remote participant by calling `stopVideo` method.
 
+</details>
+
 ### Test the video call
 
 You can now start the frontend again by running the following commands:
@@ -739,6 +758,7 @@ Go back to `http://localhost:8081` in your browser and once again start a Teams 
 
 [acs-user-access-token]: https://learn.microsoft.com/en-us/javascript/api/overview/azure/communication-identity-readme?view=azure-node-latest#using-a-connection-string
 [acs-client]: https://learn.microsoft.com/en-us/azure/communication-services/how-tos/calling-sdk/manage-calls?pivots=platform-web#initialize-required-objects
+[acs-teams-call]: https://learn.microsoft.com/en-us/azure/communication-services/quickstarts/voice-video-calling/get-started-teams-interop?pivots=platform-web#enable-the-teams-ui-controls
 
 ---
 
@@ -865,7 +885,9 @@ As you can see, the `startPhone` method takes a `phoneNumber` parameter, which s
 
 By using the `getPhoneNumber` method to dynamically get the phone number you just bought in the Azure Communication Services resource.
 
-## Test the phone call
+</details>
+
+### Test the phone call
 
 You can now start the frontend again by running the following commands:
 
@@ -878,8 +900,6 @@ npm start
 Go back to `http://localhost:8081` in your browser, enter a phone number with the country code and click on the `Start Call` button. You should receive a call from the phone number you just bought.
 
 The `Hang Up` button will stop the call because you already implemented in the `hangsUp` method which is the same for both types of calls.
-
-</details>
 
 [acs-phone-numbers]: https://learn.microsoft.com/en-us/azure/communication-services/quickstarts/telephony/get-phone-number?tabs=linux&pivots=programming-language-javascript#get-purchased-phone-numbers
 [acs-start-call-options]: https://learn.microsoft.com/en-us/javascript/api/azure-communication-services/@azure/communication-calling/startcalloptions?view=azure-communication-services-js
