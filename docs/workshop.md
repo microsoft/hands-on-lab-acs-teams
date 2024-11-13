@@ -222,7 +222,143 @@ Make sure to select the right subscription and resource group or create one, and
 
 In this lab, you will create a call between two users using Azure Communication Services.
 
-To start this lab you will use the code inside `src/add-1-on-1-acs`
+To start this lab you will use the code inside `src/add-1-on-1-acs`. The goal of this lab is to be able to start 2 instances of the frontend application and create a call between them.
+
+To do so, you will implement the call and video methods in the frontend application. Everything is already set up for you, you just need to implement the methods inside the `src/add-1-on-1-acs/index.js` file.
+
+## Start a call
+
+The first step is to create a call between two Azure Communication Services users.
+
+<div class="task" data-title="Task">
+
+> Implement the `startCallButton.onclick` method to create a call between two users. Use the predefined `createLocalVideoStream` method to create a local video stream.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+The `startCallButton.onclick` method should look like this:
+
+```javascript
+startCallButton.onclick = async () => {
+  try {
+    const localVideoStream = await createLocalVideoStream();
+    const videoOptions = localVideoStream
+      ? { localVideoStreams: [localVideoStream] }
+      : undefined;
+    call = callAgent.startCall(
+      [{ communicationUserId: calleeAcsUserId.value.trim() }],
+      { videoOptions }
+    );
+    // Subscribe to the call's properties and events.
+    subscribeToCall(call);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+The first step inside the try block is to create a local video stream by calling the `createLocalVideoStream` function and awaiting its result. This function likely initializes the user's webcam and microphone and returns a stream object.
+
+Next, the code checks if the `localVideoStream` was successfully created. If it was, it constructs a videoOptions object containing the local video stream. If not, videoOptions is set to undefined.
+
+The `callAgent.startCall` method is then called to initiate a call. The `communicationUserId` is the identifier of the person being called, which is retrieved from an input field (`calleeAcsUserId`) and trimmed of any extraneous whitespace.
+
+After starting the call, the `subscribeToCall` function is called to set up event listeners and handlers to manage the call's properties and events, such as connection status changes or incoming media streams.
+
+</details>
+
+## Accept a call
+
+Now that you have implemented the way to start a call, you now need to implement the way to accept a call. This is done by implementing the `acceptCallButton.onclick` method.
+
+<div class="task" data-title="Task">
+
+> Implement the `acceptCallButton.onclick` method to accept a call from another user, using the predefined `createLocalVideoStream` method to create a local video stream.
+> This method will be really similar to the `startCallButton.onclick` method.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+The `acceptCallButton.onclick` method should look like this:
+
+```javascript
+acceptCallButton.onclick = async () => {
+  try {
+    const localVideoStream = await createLocalVideoStream();
+    const videoOptions = localVideoStream
+      ? { localVideoStreams: [localVideoStream] }
+      : undefined;
+    call = await incomingCall.accept({ videoOptions });
+    // Subscribe to the call's properties and events.
+    subscribeToCall(call);
+  } catch (error) {
+    console.error(error);
+  }
+};
+```
+
+The `acceptCallButton.onclick` method is similar to the `startCallButton.onclick` method. It begins by creating a local video stream using the `createLocalVideoStream` function and awaiting its result. The videoOptions object is then constructed based on whether the local video stream was successfully created.
+
+The important difference is that the `accept` method is called on the `incomingCall` object to accept the incoming call. The `videoOptions` object is passed as an argument to the `accept` method to specify the local video stream to be used in the call.
+
+</details>
+
+## Hang up a call
+
+The last step is to implement the way to hang up a call. This is done by implementing the `hangUpCallButton.addEventListener` method.
+
+<div class="task" data-title="Task">
+
+> Implement the `hangUpCallButton.addEventListener` method to hang up a call.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+The `hangUpCallButton.addEventListener` method should look like this:
+
+```javascript
+hangUpCallButton.addEventListener("click", async () => {
+  // end the current call
+  await call.hangUp();
+});
+```
+
+The `hangUpCallButton.addEventListener` method is an event listener that listens for a click event on the `hangUpCallButton` element. When the button is clicked, the `hangUp` method is called on the `call` object to end the current call.
+
+</details>
+
+## Test the call
+
+Let's test the call now. You have to start the frontend twice to simulate two users. You can do this by running the following commands:
+
+```bash
+cd src/add-1-on-1-acs
+
+npm install
+
+npm run start:user1
+npm run start:user2
+```
+
+This will expose two different ports for the two users:
+
+- `localhost:8082` for the first user
+- `localhost:8083` for the second user
+
+Now, you have to go on your Azure Communication Services resource and get the `User access token` for the two users. You can do this by going to the **Identities & User Access Tokens** tab and clicking on the `Generate` button for each user.
+
+So, in the first user interface, you will have to enter his own acces token from the `User access token` field and the `Identity` field from the second user. And in the second user interface, you will have to enter his own acces token from the `User access token` field only. Then click on the `Initialize Call Agent` for both users.
+
+Then in the first user interface, you can click on the `Start Call` button and in the second user interface, you can click on the `Accept Call` button.
+
+You should be able to see you and the other user in the video call.
 
 ---
 
