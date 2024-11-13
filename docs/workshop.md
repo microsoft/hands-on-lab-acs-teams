@@ -12,7 +12,7 @@ authors: # Required. You can add as many authors as needed
 contacts: # Required. Must match the number of authors
   - "@lucas.peirone"
   - "@damienaicheh"
-duration_minutes: 60
+duration_minutes: 240
 tags: azure, azure communication services, microsoft teams, javascript, codespace, devcontainer, csu
 navigation_levels: 3
 ---
