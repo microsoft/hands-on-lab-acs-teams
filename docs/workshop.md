@@ -352,7 +352,9 @@ This will expose two different ports for the two users:
 - `localhost:8082` for the first user
 - `localhost:8083` for the second user
 
-Now, you have to go on your Azure Communication Services resource and get the `User access token` for the two users. You can do this by going to the **Identities & User Access Tokens** tab and clicking on the `Generate` button for each user.
+Now, you have to go on your Azure Communication Services resource and get the `User access token` for the two users. You can do this by going to the **Identities & User Access Tokens** tab, select `VOIP` and `Chat` and clicking on the `Generate` button for each user.
+
+![generate-token](./assets/acs-identities.png)
 
 So, in the first user interface, you will have to enter his own acces token from the `User access token` field and the `Identity` field from the second user. And in the second user interface, you will have to enter his own acces token from the `User access token` field only. Then click on the `Initialize Call Agent` for both users.
 
