@@ -569,13 +569,64 @@ You should now have a phone number in the `Phone Numbers` tab:
 
 ## Add the phone call method
 
-Now that you have a phone number, you can create a call between your frontend application and this phone number.
+### Update the backend server
+
+The first step is to update the backend server to provide an endpoint to get the phone number you just bought. In a real world scenario, you can imaging having multiple phone numbers by country and you would need to get the phone number dynamically.
+
+<div class="task" data-title="Task">
+
+> Implement the `getFirstPhoneNumber` method to get the phone number you just bought inside the `src/acs-to-external/back/svc/getPhoneNumber.js` folder.
+> Use the `@azure/communication-phone-numbers` package to get the phone number.
+> Test it with Postman by calling the `/phone` endpoint.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+The `getFirstPhoneNumber` method should look like this:
+
+```javascript
+export async function getFirstPhoneNumber() {
+  const client = new PhoneNumbersClient(env["ACS_CONNECTION_STRING"]);
+  const numbers = await client.listPurchasedPhoneNumbers();
+  let firstNumber;
+  for await (const number of numbers) {
+    firstNumber = number;
+    break;
+  }
+  if (!firstNumber) {
+    throw new Error("No phone numbers available");
+  }
+
+  return firstNumber.phoneNumber;
+}
+```
+
+You need to use a `PhoneNumbersClient` object to get the phone numbers you bought. You can then loop through the phone numbers and return the first one. In a real world scenario, you can imagine having multiple phone numbers and you would need to get the phone number dynamically based on the country code for instance.
+
+Restart the backend server by running the following commands and test the endpoint:
+
+```bash
+cd src/acs-to-external/back
+
+npm start
+```
+
+Call the `http://localhost:8080/phone` endpoint to test if you get the phone number you just bought.
+
+</details>
+
+### Update the frontend
+
+Now that you have a phone number, you can create a call between your frontend application and this new endpoint.
 
 You will continue to use the code inside the `src/acs-to-external/front/client.js` file.
 
 <div class="task" data-title="Task">
 
 > Implement the `startPhone` method to create a call between your frontend application and the phone number you just bought.
+> Use the `getPhoneNumber` method to get the phone number you just bought.
 
 </div>
 
@@ -586,13 +637,17 @@ The `startPhone` method should look like this:
 
 ```javascript
 async function startPhone(phoneNumber, callAgent, gui) {
+  const callingNumber = await getPhoneNumber();
+  console.log(`Calling from ${callingNumber} to ${phoneNumber}`);
   callAgent.startCall([{ phoneNumber }], {
-    alternateCallerId: { phoneNumber: "YOUR_ACS_NUMBER" },
+    alternateCallerId: { phoneNumber: callingNumber },
   });
 }
 ```
 
-As you can see, the `startPhone` method takes a `phoneNumber` parameter, which should start with the country code for instance `+33` for France or `+1` for US. The `phoneNumber` is the phone number you just bought, it should also start with the country code exactly like in the Azure Communication Services resource.
+As you can see, the `startPhone` method takes a `phoneNumber` parameter, which should start with the country code for instance `+33` for France or `+1` for US, this is the phone number you will call.
+
+By using the `getPhoneNumber` method to dynamically get the phone number you just bought in the Azure Communication Services resource.
 
 ## Test the phone call
 
@@ -605,6 +660,10 @@ npm start
 ```
 
 Go back to `http://localhost:8081` in your browser, enter a phone number with the country code and click on the `Start Call` button. You should receive a call from the phone number you just bought.
+
+The `Hang Up` button will stop the call because you already implemented in the `hangsUp` method which is the same for both types of calls.
+
+</details>
 
 ---
 
