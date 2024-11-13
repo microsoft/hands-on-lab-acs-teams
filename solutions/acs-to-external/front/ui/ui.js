@@ -22,6 +22,12 @@ export class UI {
     this.startPhoneButton = document.getElementById("call-phone-button");
     this.stopPhoneButton = document.getElementById("hang-up-phone-button");
     this.phoneInput = document.getElementById("callee-phone-input");
+
+    // Login UI elements
+    this.loginButton = document.getElementById("login-button");
+    this.emailInput = document.getElementById("email");
+    this.loginContainer = document.querySelector(".login-container");
+    this.acsIdElement = document.getElementById("acs-id");
   }
 
   async dispatch(state) {
@@ -65,6 +71,18 @@ export class UI {
 
         break;
     }
+  }
+
+  toggleLogin() {
+    if (this.loginContainer.classList.contains("hidden")) {
+      this.loginContainer.classList.remove("hidden");
+    } else {
+      this.loginContainer.classList.add("hidden");
+    }
+  }
+
+  showAcsId(acsId) {
+    this.acsIdElement.innerText = acsId;
   }
 
   renderMessage(message, isSent) {

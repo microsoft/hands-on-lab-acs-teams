@@ -5,7 +5,12 @@ import {
 } from "@azure/communication-calling";
 import { AzureCommunicationTokenCredential } from "@azure/communication-common";
 import { ChatClient } from "@azure/communication-chat";
-import { getEndpointUrl, getPhoneNumber, getToken } from "./utils/utils.js";
+import {
+  getEndpointUrl,
+  getPhoneNumber,
+  randomAuth,
+  login,
+} from "./utils/utils.js";
 import { UI } from "./ui/ui.js";
 
 /** @typedef {import("@azure/communication-calling").Call} Call */
@@ -16,28 +21,35 @@ import { UI } from "./ui/ui.js";
 /** @type {LocalVideoStream} */
 let localVideoStream;
 
-async function main() {
-  const callClient = new CallClient();
-  const creds = new AzureCommunicationTokenCredential(await getToken());
+// Toggle this to true in lab 4
+const USE_AUTH = false;
 
-  const callAgent = await callClient.createCallAgent(creds, {
-    displayName: "ACS user",
-  });
+async function main() {
+  const gui = new UI();
+  const { token, acsId } = await handleLogin(gui, USE_AUTH);
+  // Remove the login screen which is on by default
+  gui.toggleLogin();
+  gui.showAcsId(acsId);
+
+  const callClient = new CallClient();
+  const creds = new AzureCommunicationTokenCredential(token);
+  let displayName = "ACS user";
+
+  const callAgent = await callClient.createCallAgent(creds, { displayName });
   const chatClient = new ChatClient(await getEndpointUrl(), creds);
 
   const deviceManager = await callClient.getDeviceManager();
   await deviceManager.askDevicePermission({ video: true, audio: true });
-  await registerEvents(callAgent, chatClient, deviceManager);
+  await registerEvents(gui, callAgent, chatClient, deviceManager);
 }
 
 /**
- *
+ * @param {UI} gui
  * @param {CallAgent} callAgent
  * @param {ChatClient} chatClient
  * @param {DeviceManager} deviceManager
  */
-async function registerEvents(callAgent, chatClient, deviceManager) {
-  const gui = new UI();
+async function registerEvents(gui, callAgent, chatClient, deviceManager) {
   gui.dispatch("Idle");
 
   // Call
@@ -88,7 +100,7 @@ async function updateUi(gui, call) {
   gui.dispatch(call.state);
 }
 
-main().catch(console.error);
+document.addEventListener("DOMContentLoaded", main);
 
 /**
  *  Starts the call, creating the audio and chat session.
@@ -184,4 +196,25 @@ async function startPhone(phoneNumber, callAgent, gui) {
   callAgent.startCall([{ phoneNumber }], {
     alternateCallerId: { phoneNumber: callingNumber },
   });
+}
+
+/**
+ * Handles the login process, either by using the email input or by getting a random identity from the backend.
+ * @param {UI} gui
+ * @param {boolean} useAuth
+ * @returns
+ */
+async function handleLogin(gui, useAuth) {
+  // If not using auth, get a random identity from the backend
+  if (!useAuth) {
+    const auth = await randomAuth();
+    return { token: auth.token, acsId: auth.user.communicationUserId };
+  }
+
+  // Else, blocks until the user 'logs in'
+  return new Promise((res) =>
+    gui.loginButton.addEventListener("click", (_) =>
+      res(login(gui.emailInput.value))
+    )
+  );
 }
