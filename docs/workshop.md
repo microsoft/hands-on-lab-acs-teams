@@ -137,7 +137,8 @@ The following tools and access will be necessary to run the lab in good conditio
 - [Git client][git-client]
 - [Visual Studio Code][vs-code] installed (you will use Dev Containers)
 - [Azure CLI][az-cli-install] installed on your machine
-- [Node 22][download-node] with Npm
+- [Node 22][download-node]
+- Npm 10
 
 Once you have set up your local environment, you can clone the Hands-on-lab repository you just forked on your machine, and open the local folder in Visual Studio Code and head to the next step.
 
@@ -226,6 +227,14 @@ To start this lab you will use the code inside `src/add-1-on-1-acs`. The goal of
 
 To do so, you will implement the call and video methods in the frontend application. Everything is already set up for you, you just need to implement the methods inside the `src/add-1-on-1-acs/index.js` file.
 
+The initialisation of the call agent is already done for you, you can look at it in the `src/add-1-on-1-acs/index.js` file inside the `initializeCallAgentButton.onclick` method.
+
+This is done in 3 steps:
+
+- Initialize Azure Communication Services with the creation of a call agent
+- Set up a camera device and microphone to use in the call
+- Listen for an incoming call to accept it
+
 ## Start a call
 
 The first step is to create a call between two Azure Communication Services users.
@@ -233,6 +242,12 @@ The first step is to create a call between two Azure Communication Services user
 <div class="task" data-title="Task">
 
 > Implement the `startCallButton.onclick` method to create a call between two users. Use the predefined `createLocalVideoStream` method to create a local video stream.
+
+</div>
+
+<div class="tip" data-title="Tips">
+
+> You can find how to start a call between two users in this [tutorial][acs-start-call]
 
 </div>
 
@@ -281,6 +296,12 @@ Now that you have implemented the way to start a call, you now need to implement
 
 </div>
 
+<div class="tip" data-title="Tips">
+
+> You can find how to receive a call from another user in this [tutorial][acs-receive-call]
+
+</div>
+
 <details>
 <summary>Toggle solution</summary>
 
@@ -315,6 +336,12 @@ The last step is to implement the way to hang up a call. This is done by impleme
 <div class="task" data-title="Task">
 
 > Implement the `hangUpCallButton.addEventListener` method to hang up a call.
+
+</div>
+
+<div class="tip" data-title="Tips">
+
+> You can find how to end a call in this [documentation][acs-hang-up-call]
 
 </div>
 
@@ -362,6 +389,10 @@ Then in the first user interface, you can click on the `Start Call` button and i
 
 You should be able to see you and the other user in the video call.
 
+[acs-start-call]: https://learn.microsoft.com/en-us/azure/communication-services/how-tos/calling-sdk/manage-calls?pivots=platform-web#place-a-call
+[acs-receive-call]: https://learn.microsoft.com/en-us/azure/communication-services/how-tos/calling-sdk/manage-calls?pivots=platform-web#receive-an-incoming-call
+[acs-hang-up-call]: https://learn.microsoft.com/en-us/javascript/api/azure-communication-services/@azure/communication-calling/call?view=azure-communication-services-js#@azure-communication-calling-call-hangup
+
 ---
 
 # Lab 2 - Interact with Azure Communication Services and Microsoft Teams
@@ -373,6 +404,14 @@ To start this lab you will use the code inside `src/acs-to-external`.
 ## Prepare the backend server
 
 The role of the server is to interract with Azure Communication Services to create a chat, a call or a video call. The server will also be responsible to create authentification for users and provide Azure Communication Services endpoint.
+
+### Add the Azure Communication Services connection string
+
+Inside the `src/acs-to-external/back` folder, you will find a `.env.example` file. Rename this file to `.env` and fill in the `ACS_CONNECTION_STRING` with the connection string of your Azure Communication Services resource.
+
+You can find it in **Settings** > **Keys** tab of your Azure Communication Services resource:
+
+![create-acs](./assets/acs-connection-string.png)
 
 ### Provide user token
 
@@ -387,6 +426,12 @@ The goal of this method is to create an equivalent of the processed you did in t
 
 </div>
 
+<div class="tip" data-title="Tips">
+
+> You can find how to create a user access token in this [documentation][acs-user-access-token]
+
+</div>
+
 <details>
 <summary>Toggle solution</summary>
 
@@ -398,14 +443,6 @@ export async function createUserAndToken(scopes) {
   return client.createUserAndToken(scopes);
 }
 ```
-
-### Add the Azure Communication Services connection string
-
-Inside the `src/acs-to-external/back` folder, you will find a `.env.example` file. Rename this file to `.env` and fill in the `ACS_CONNECTION_STRING` with the connection string of your Azure Communication Services resource.
-
-You can find it in **Settings** > **Keys** tab of your Azure Communication Services resource:
-
-![create-acs](./assets/acs-connection-string.png)
 
 ### Test the method
 
@@ -435,6 +472,12 @@ The next step is to connect the frontend to the backend.
 
 > Inside the `src/acs-to-external/front/client.js` file, implement the `main` method to create a `callClient`, `callAgent` and `chatClient` objects.
 > Use the methods inside the `src/acs-to-external/front/utils` folder in the `utils.js` file to initiate those objects.
+
+</div>
+
+<div class="tip" data-title="Tips">
+
+> You can find how to create a callClient, callAgent and chatClient in this [documentation][acs-client]
 
 </div>
 
@@ -533,9 +576,15 @@ You will continue to use the code inside the `src/acs-to-external/front/client.j
 
 <div class="task" data-title="Task">
 
-> Implement the `sendMessage` method to create a chat between two users. Set the sender name as you want
+> Implement the `sendMessage` method to create a chat between two users.
 > Update the `startCall` method to listen to the `chatMessageReceived` event to receive the messages of this call.
 > Update the `hangsUp` method to stop the chat notifications.
+
+</div>
+
+<div class="tip" data-title="Tips">
+
+> You can find how to send a message in this [documentation][acs-send-message]
 
 </div>
 
@@ -548,12 +597,11 @@ The `sendMessage` method should look like this:
 
 ```javascript
 async function sendMessage(chatThreadClient, content) {
-  const opt = { senderDisplayName: "Jack" };
-  await chatThreadClient.sendMessage({ content }, opt);
+  await chatThreadClient.sendMessage({ content });
 }
 ```
 
-As you can see, the `sendMessage` method takes a `chatThreadClient` object and a `content` parameter. The `senderDisplayName` is the name of the user who sends the message. To keep it simple, we set it to `Jack` but in a real world scenario, you would get the name of the user from a database that will do the mapping between the Azure Communication Services user and the frontend user.
+As you can see, the `sendMessage` method takes a `chatThreadClient` object and a `content` parameter. The `senderDisplayName` is the name of the user who sends the message.
 
 In the `startCall` method, you will need to add a listener to the messages of this call:
 
@@ -605,6 +653,19 @@ You will continue to use the code inside the `src/acs-to-external/front/client.j
 > Implement the `startVideo` method to create a video call between two users.
 > Implement the `stopVideo` method to stop the video call.
 > The access to the camera was already asked in the `main` method for you. You will just use it with the `deviceManager` object.
+
+</div>
+
+<div class="tip" data-title="Tips">
+
+> To retreive the local video stream, you can use this code:
+>
+> ```javascript
+> // Local video loopback
+> localVideoStream = new LocalVideoStream(cameras[0]);
+> const renderer = new VideoStreamRenderer(localVideoStream);
+> gui.displayLocalVideo(renderer);
+> ```
 
 </div>
 
@@ -676,6 +737,9 @@ npm start
 
 Go back to `http://localhost:8081` in your browser and once again start a Teams meeting, it can be the same one you used for the call. You will be able to see you in the video call by clicking on the `Start Video` button.
 
+[acs-user-access-token]: https://learn.microsoft.com/en-us/javascript/api/overview/azure/communication-identity-readme?view=azure-node-latest#using-a-connection-string
+[acs-client]: https://learn.microsoft.com/en-us/azure/communication-services/how-tos/calling-sdk/manage-calls?pivots=platform-web#initialize-required-objects
+
 ---
 
 # Lab 3 - Call a phone number
@@ -716,6 +780,13 @@ The first step is to update the backend server to provide an endpoint to get the
 > Implement the `getFirstPhoneNumber` method to get the phone number you just bought inside the `src/acs-to-external/back/svc/getPhoneNumber.js` folder.
 > Use the `@azure/communication-phone-numbers` package to get the phone number.
 > Test it with Postman by calling the `/phone` endpoint.
+
+</div>
+
+<div class="tip" data-title="Tips">
+
+> This tutorial will help you to get started with the `@azure/communication-phone-numbers` package:
+> [Azure Communication Services - Phone Numbers][acs-phone-numbers]
 
 </div>
 
@@ -768,6 +839,13 @@ You will continue to use the code inside the `src/acs-to-external/front/client.j
 
 </div>
 
+<div class="tip" data-title="Tips">
+
+> You can look at the `startCallOptions` interface to see how to start a call with a phone number
+> [Azure Communication Services - StartCallOptions][acs-start-call-options]
+
+</div>
+
 <details>
 <summary>Toggle solution</summary>
 
@@ -802,6 +880,10 @@ Go back to `http://localhost:8081` in your browser, enter a phone number with th
 The `Hang Up` button will stop the call because you already implemented in the `hangsUp` method which is the same for both types of calls.
 
 </details>
+
+[acs-phone-numbers]: https://learn.microsoft.com/en-us/azure/communication-services/quickstarts/telephony/get-phone-number?tabs=linux&pivots=programming-language-javascript#get-purchased-phone-numbers
+[acs-start-call-options]: https://learn.microsoft.com/en-us/javascript/api/azure-communication-services/@azure/communication-calling/startcalloptions?view=azure-communication-services-js
+[acs-send-message]: https://learn.microsoft.com/en-us/javascript/api/overview/azure/communication-chat-readme?view=azure-node-latest#send-a-message-to-the-thread
 
 ---
 

@@ -130,8 +130,7 @@ async function hangsUp(callAgent, chatClient) {
  * @param {string} content
  */
 async function sendMessage(chatThreadClient, content) {
-  const opt = { senderDisplayName: "Jack" };
-  await chatThreadClient.sendMessage({ content }, opt);
+  await chatThreadClient.sendMessage({ content });
 }
 
 /**
