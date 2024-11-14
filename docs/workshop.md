@@ -223,6 +223,8 @@ Make sure to select the right subscription and resource group or create one, and
 
 In this lab, you will create a call between two users using Azure Communication Services.
 
+![architecture 1](assets/architecture-lab-1.jpg)
+
 To start this lab you will use the code inside `src/add-1-on-1-acs`. The goal of this lab is to be able to start 2 instances of the frontend application and create a call between them.
 
 To do so, you will implement the call and video methods in the frontend application. Everything is already set up for you, you just need to implement the methods inside the `src/add-1-on-1-acs/index.js` file.
@@ -398,6 +400,8 @@ You should be able to see you and the other user in the video call.
 # Lab 2 - Interact with Azure Communication Services and Microsoft Teams
 
 In this lab, you will create a real world scenario where you have a backend that interacts with Azure Communication Services and a basic frontend.
+
+![architecture 2](assets/architecture-lab-2.jpg)
 
 To start this lab you will use the code inside `src/acs-to-external`.
 
@@ -765,6 +769,8 @@ Go back to `http://localhost:8081` in your browser and once again start a Teams 
 # Lab 3 - Call a phone number
 
 Now let's use the Azure Communication Services to call a phone number. In this lab, you will create a call between your frontend application and a phone number.
+
+![architecture 3](assets/architecture-lab-3.jpg)
 
 ## Buy a phone number
 

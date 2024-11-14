@@ -1,0 +1,223 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/24.7.17 Chrome/128.0.6613.36 Electron/32.0.1 Safari/537.36" version="24.7.17" pages="4">
+  <diagram name="Lab 1" id="nHygR-B81gB7RvOn0jNI">
+    <mxGraphModel dx="1354" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="mGq0ELUA-NLsEU9FI2ht-1" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Azure_Communication_Services.svg;" vertex="1" parent="1">
+          <mxGeometry x="330" y="310" width="68" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-1" value="Azure Comminucation Services" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="370" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-6" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" vertex="1" parent="1">
+          <mxGeometry x="140" y="480" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-2" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="90" y="510" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-7" value="Azure Comminucation Services User 1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="127.5" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-8" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" vertex="1" parent="1">
+          <mxGeometry x="522.5" y="480" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-9" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="582.5" y="510" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-10" value="Azure Comminucation Services User 2" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-11" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="170" y="470" as="sourcePoint" />
+            <mxPoint x="310" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MUWft3zcFi5lks64TIo6-12" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="554" y="470" as="sourcePoint" />
+            <mxPoint x="414" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="XW86LsxtZ26OooM_wpfX" name="Lab 2">
+    <mxGraphModel dx="1231" dy="748" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="usptwZHDwohb349nkpGn-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://logos-world.net/wp-content/uploads/2021/04/Microsoft-Teams-Logo.png;" vertex="1" parent="1">
+          <mxGeometry x="510" y="480.68" width="90" height="50.63" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-1" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Azure_Communication_Services.svg;" vertex="1" parent="1">
+          <mxGeometry x="330" y="310" width="68" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-2" value="Azure Comminucation Services" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="330" y="370" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-3" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" vertex="1" parent="1">
+          <mxGeometry x="140" y="480" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-4" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="90" y="510" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-5" value="Azure Comminucation Services User" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="127.5" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-7" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="1">
+          <mxGeometry x="582.5" y="510" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-8" value="Microsoft Teams User" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="510" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-9" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="218" y="350" as="sourcePoint" />
+            <mxPoint x="317.5" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MDG6w3AZd7p_MCHtT_Gc-10" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="554" y="470" as="sourcePoint" />
+            <mxPoint x="414" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ZukNbwX-LkLDT5zvLUfB-2" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.483;exitY=-0.136;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.512;entryY=1.089;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="MDG6w3AZd7p_MCHtT_Gc-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="228" y="360" as="sourcePoint" />
+            <mxPoint x="173.22000000000003" y="397.1199999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="L5JhXoIxZelJ2dIU4Jsp-1" value="Backend" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="132.5" y="310" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Lab 3" id="rxit3yqX28zBqE-LlHEx">
+    <mxGraphModel dx="1354" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-0" />
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-1" parent="Xmuw2e9jYtBf4a3F56Rx-0" />
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-3" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Azure_Communication_Services.svg;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="330" y="310" width="68" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-4" value="Azure Comminucation Services" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="330" y="370" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-5" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="140" y="480" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-6" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="90" y="510" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-7" value="Azure Comminucation Services User" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="127.5" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-8" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="582.5" y="510" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-9" value="Phone User" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="510" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-10" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="218" y="350" as="sourcePoint" />
+            <mxPoint x="317.5" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-11" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="554" y="470" as="sourcePoint" />
+            <mxPoint x="414" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Xmuw2e9jYtBf4a3F56Rx-13" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.483;exitY=-0.136;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.512;entryY=1.089;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="Xmuw2e9jYtBf4a3F56Rx-1" source="Xmuw2e9jYtBf4a3F56Rx-5">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="228" y="360" as="sourcePoint" />
+            <mxPoint x="173.22000000000003" y="397.1199999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fpLShbXVfUSpnGkUX91s-2" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.phone;fillColor=#36BE0F;strokeColor=none" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="526.1" y="480" width="57.800000000000004" height="54.2" as="geometry" />
+        </mxCell>
+        <mxCell id="EP-j4YGJelnpkYSHQ0Eo-0" value="Backend" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="Xmuw2e9jYtBf4a3F56Rx-1">
+          <mxGeometry x="132.5" y="313" width="80" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram name="Lab 4" id="BlopHmLQtyq2mjVXeVVX">
+    <mxGraphModel dx="1114" dy="823" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-0" />
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-1" parent="ksjtAtX2uVOmjvDsjgD2-0" />
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-2" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/other/Azure_Communication_Services.svg;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="330" y="310" width="68" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-3" value="Azure Comminucation Services" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="330" y="370" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-4" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="140" y="480" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-5" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="90" y="510" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-6" value="&lt;font color=&quot;#ffffff&quot;&gt;&lt;b&gt;Login&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="127.5" y="494.57" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-8" value="Any kind of User" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="510" y="555" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-9" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="218" y="350" as="sourcePoint" />
+            <mxPoint x="317.5" y="330" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-10" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;" edge="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="554" y="470" as="sourcePoint" />
+            <mxPoint x="414" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-11" value="Database" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="14" y="230" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-12" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.483;exitY=-0.136;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="ksjtAtX2uVOmjvDsjgD2-1" source="ksjtAtX2uVOmjvDsjgD2-4" target="yBOPOHhV7_8yFrP_WCFX-0">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="228" y="360" as="sourcePoint" />
+            <mxPoint x="327.5" y="340" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-13" value="" style="dashed=0;outlineConnect=0;html=1;align=center;labelPosition=center;verticalLabelPosition=bottom;verticalAlign=top;shape=mxgraph.weblogos.phone;fillColor=#36BE0F;strokeColor=none" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="600" y="482.47" width="57.800000000000004" height="54.2" as="geometry" />
+        </mxCell>
+        <mxCell id="yBOPOHhV7_8yFrP_WCFX-0" value="Backend" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="132.5" y="320" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yBOPOHhV7_8yFrP_WCFX-1" value="" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=0.01;exitY=0.383;exitDx=0;exitDy=0;exitPerimeter=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="127.49999999999996" y="343.6400000000001" as="sourcePoint" />
+            <mxPoint x="76.2" y="290" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Cwcclr8EBm3knAYmvjVH-0" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://logos-world.net/wp-content/uploads/2021/04/Microsoft-Teams-Logo.png;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="520" y="480" width="90" height="50.63" as="geometry" />
+        </mxCell>
+        <mxCell id="j27QhhvpD9LEcIyPL_Tg-0" value="" style="image;aspect=fixed;html=1;points=[];align=center;fontSize=12;image=img/lib/azure2/general/Browser.svg;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="460" y="482.46999999999997" width="65" height="52" as="geometry" />
+        </mxCell>
+        <mxCell id="ksjtAtX2uVOmjvDsjgD2-7" value="" style="sketch=0;outlineConnect=0;fontColor=#232F3E;gradientColor=none;fillColor=#232F3D;strokeColor=none;dashed=0;verticalLabelPosition=bottom;verticalAlign=top;align=center;html=1;fontSize=12;fontStyle=0;aspect=fixed;pointerEvents=1;shape=mxgraph.aws4.user;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="600" y="537" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="j27QhhvpD9LEcIyPL_Tg-1" value="Azure Comminucation Services User" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="ksjtAtX2uVOmjvDsjgD2-1">
+          <mxGeometry x="137.5" y="565" width="90" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

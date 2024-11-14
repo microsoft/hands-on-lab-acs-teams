@@ -211,6 +211,7 @@ async function handleLogin(gui, useAuth) {
     return { token: auth.token, acsId: auth.user.communicationUserId };
   }
 
+  // Only for demo purpose, don't do that in production: 
   // Else, blocks until the user 'logs in'
   return new Promise((res) =>
     gui.loginButton.addEventListener("click", (_) =>
