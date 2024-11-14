@@ -913,6 +913,14 @@ The `Hang Up` button will stop the call because you already implemented in the `
 
 ---
 
+# Lab 4 - Map Azure Communication Services Users to your own users
+
+In this lab, you will create a user mapping between your own users and the Azure Communication Services users. In fact, in a real world scenario, you will have to map your own users to an identifier of the Azure Communication Services. This is necessary if you want to be able to track the history of the calls, messages, etc.
+
+## Create a user mapping
+
+---
+
 # Closing the workshop
 
 Once you're done with this lab you can delete the resource group you created at the beginning.
