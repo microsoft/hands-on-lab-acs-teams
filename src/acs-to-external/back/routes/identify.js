@@ -52,6 +52,7 @@ export default (backend) => {
    * @param email: The email of the user to identify
    * @returns The ACS ID of the user and whether the user was created
    */
+  // This GET route is only for debuging
   router.get("/", identifyUserFactory(backend));
   router.post("/", identifyUserFactory(backend));
   return router;

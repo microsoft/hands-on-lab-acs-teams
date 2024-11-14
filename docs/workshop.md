@@ -917,7 +917,65 @@ The `Hang Up` button will stop the call because you already implemented in the `
 
 In this lab, you will create a user mapping between your own users and the Azure Communication Services users. In fact, in a real world scenario, you will have to map your own users to an identifier of the Azure Communication Services. This is necessary if you want to be able to track the history of the calls, messages, etc.
 
-## Create a user mapping
+![architecture 4](assets/architecture-lab-4.jpg)
+
+You will use a fake backend server with an in memory database to store the user mapping and simulate the user authentication. Most of the code is already done for you, you just need to implement the identification of the user.
+
+## Create a user identification method
+
+As you can see in the `src/acs-to-external/back/svc/identifyUser.js` file, you have a method called `identifyUser`.
+
+<div class="task" data-title="Task">
+
+> Implement the `identifyUser` method to identify the user and return the Azure Communication Services user identifier.
+> Use the `backend` object to check if the `email` of the user is already in the database
+> If it's not store, use the `createUserAndToken` method to create a user access token for chat and VOIP and store it in the database.
+> Return the payload object defined in the method signature.
+
+</div>
+
+<details>
+<summary>Toggle solution</summary>
+
+The `identifyUser` method should look like this:
+
+```javascript
+export async function identifyUser(backend, email) {
+  let exists = backend.has(email);
+  const payload = { acsId: "", token: "default", created: !exists };
+
+  if (!exists) {
+    const { user, token } = await createUserAndToken(["chat", "voip"]);
+    backend.set(email, { user, token });
+  }
+
+  const { user, token } = backend.get(email);
+  payload.acsId = user.communicationUserId;
+  payload.token = token;
+  return payload;
+}
+```
+
+Here's a step-by-step explanation of what the function does:
+First, we check if the user exists, by checking if the email is already in the database. If it's not, we create a new user and token by calling the `createUserAndToken` method. We then store the user and token in the database. Finally, we return the payload object with the user's communication ID and token.
+
+## Test the new endpoint
+
+You can now start the backend server by running the following commands:
+
+```bash
+cd src/acs-to-external/back
+
+npm start
+```
+
+You can now test the `/login` endpoint by calling it with the email of a user. You should receive a payload object with the user's communication ID and token.
+
+You can test it directly:
+
+![Test login](assets/test-login.png)
+
+</details>
 
 ---
 
