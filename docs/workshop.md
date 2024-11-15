@@ -17,7 +17,7 @@ tags: azure, azure communication services, microsoft teams, javascript, codespac
 navigation_levels: 3
 ---
 
-# Product Hands-on Lab - Azure Communication Services with Microsoft Teams
+# Product Hands-on Lab - Use Azure Communication Services to extend the capabilities of your applications
 
 Welcome to this Azure Communication Services Workshop. You will learn how to integrate Azure Communication Services with Microsoft Teams to build a chat application. Don't worry, even if the challenges will increase in difficulty, this is a step by step lab, you will be guided through the whole process.
 
@@ -28,10 +28,6 @@ During this workshop you will have the instructions to complete each steps. It i
 > You will find the instructions and expected configurations for each Lab step in these yellow **TASK** boxes.
 >
 > Inputs and parameters to select will be defined, all the rest can remain as default as it has no impact on the scenario.
->
-> Log into your Azure subscription locally using Azure CLI and on the [Azure Portal][az-portal] using your own credentials.
->
-> Instructions and solutions will be given for the Azure CLI, but you can also use the Azure Portal if you prefer.
 
 </div>
 
@@ -136,7 +132,6 @@ The following tools and access will be necessary to run the lab in good conditio
 
 - [Git client][git-client]
 - [Visual Studio Code][vs-code] installed (you will use Dev Containers)
-- [Azure CLI][az-cli-install] installed on your machine
 - [Node 22][download-node]
 - Npm 10
 
@@ -200,9 +195,11 @@ In this lab, you will create an Azure Communication Services resource to enable 
 
 Go to the Azure Portal and create a new resource by searching for `Azure Communication Services`.
 
-Make sure to select the right subscription and resource group or create one, and choose a unique name for your Azure Communication Service resource.
+Make sure to select the right subscription and resource group or create one, and choose a unique name for your Azure Communication Service resource. You can pick a location close to you or your users.
 
 ![create-acs](./assets/create-acs-resource.png)
+
+Click on `Review + create`.
 
 </details>
 
@@ -221,7 +218,9 @@ Make sure to select the right subscription and resource group or create one, and
 
 # Lab 1 - Create a call between two ACS users
 
-In this lab, you will create a call between two users using Azure Communication Services.
+In this lab, you will create a call between two users using Azure Communication Services. This will be the base to understand how Azure Communication Services works. In the next labs, you will use Azure Communication Services in an architecture closed to a real world scenario.
+
+## Scenario
 
 ![architecture 1](assets/architecture-lab-1.jpg)
 
@@ -233,8 +232,8 @@ The initialisation of the call agent is already done for you, you can look at it
 
 This is done in 3 steps:
 
-- Initialize Azure Communication Services with the creation of a call agent
-- Set up a camera device and microphone to use in the call
+- Initialize Azure Communication Services with the creation of a call agent based on an user access token that you will get from the Azure Communication Services resource
+- Initialize the camera and microphone to use in the call
 - Listen for an incoming call to accept it
 
 ## Start a call
@@ -243,7 +242,9 @@ The first step is to create a call between two Azure Communication Services user
 
 <div class="task" data-title="Task">
 
-> Implement the `startCallButton.onclick` method to create a call between two users. Use the predefined `createLocalVideoStream` method to create a local video stream.
+> - Implement the `startCallButton.onclick` method to create a call between two users. Use the predefined `createLocalVideoStream` method to create a local video stream.
+> - The `calleeAcsUserId` is the user identifier of the person you want to call which is retrieved from an input field.
+> - Don't forget to subscribe to the call's properties and events using the `subscribeToCall` method predefined for you.
 
 </div>
 
@@ -293,8 +294,8 @@ Now that you have implemented the way to start a call, you now need to implement
 
 <div class="task" data-title="Task">
 
-> Implement the `acceptCallButton.onclick` method to accept a call from another user, using the predefined `createLocalVideoStream` method to create a local video stream.
-> This method will be really similar to the `startCallButton.onclick` method.
+> - Implement the `acceptCallButton.onclick` method to accept a call from another user, using the predefined `createLocalVideoStream` method to create a local video stream.
+> - Don't forget to subscribe to the call's properties and events using the `subscribeToCall` method predefined for you.
 
 </div>
 
@@ -367,12 +368,21 @@ The `hangUpCallButton.addEventListener` method is an event listener that listens
 
 Let's test the call now. You have to start the frontend twice to simulate two users. You can do this by running the following commands:
 
+In a first terminal:
+
 ```bash
 cd src/add-1-on-1-acs
 
 npm install
 
 npm run start:user1
+```
+
+in a second terminal:
+
+```bash
+cd src/add-1-on-1-acs
+
 npm run start:user2
 ```
 
@@ -381,15 +391,27 @@ This will expose two different ports for the two users:
 - `localhost:8082` for the first user
 - `localhost:8083` for the second user
 
-Now, you have to go on your Azure Communication Services resource and get the `User access token` for the two users. You can do this by going to the **Identities & User Access Tokens** tab, select `VOIP` and `Chat` and clicking on the `Generate` button for each user.
+Now, you have to go on your Azure Communication Services resource and get one `User access token` for each users. You can do this by going to the **Identities & User Access Tokens** tab, select `VOIP` and `Chat` and clicking on the `Generate` button for each user.
 
 ![generate-token](./assets/acs-identities.png)
 
 So, in the first user interface, you will have to enter his own acces token from the `User access token` field and the `Identity` field from the second user. And in the second user interface, you will have to enter his own acces token from the `User access token` field only. Then click on the `Initialize Call Agent` for both users.
 
-Then in the first user interface, you can click on the `Start Call` button and in the second user interface, you can click on the `Accept Call` button.
+So for user 1 you will have:
+![Initialize ACS call user 1](./assets/initialize-acs-call-user-1.png)
+
+and for user 2:
+![Initialize ACS call user 2](./assets/initialize-acs-call-user-2.png)
+
+With this setup, the user 1 will use the `Identity` of the user 2 to do the call to the user 2. The `User access token` is used to authenticate the users to the Azure Communication Services.
+
+Finally in the first user interface, you can click on the `Start Call` button and in the second user interface, you can click on the `Accept Call` button.
 
 You should be able to see you and the other user in the video call.
+
+## Summary Lab 1
+
+In this lab, you have learned how to create a call between two users using Azure Communication Services. You have implemented the way to start a call, accept a call and hang up a call. You have also learned how to use the user access token to authenticate the users to the Azure Communication Services.
 
 [acs-start-call]: https://learn.microsoft.com/en-us/azure/communication-services/how-tos/calling-sdk/manage-calls?pivots=platform-web#place-a-call
 [acs-receive-call]: https://learn.microsoft.com/en-us/azure/communication-services/how-tos/calling-sdk/manage-calls?pivots=platform-web#receive-an-incoming-call
@@ -399,9 +421,13 @@ You should be able to see you and the other user in the video call.
 
 # Lab 2 - Interact with Azure Communication Services and Microsoft Teams
 
-In this lab, you will create a real world scenario where you have a backend that interacts with Azure Communication Services and a basic frontend.
+In this lab, you will create a real world scenario where you have a backend that interacts with Azure Communication Services and a frontend.
+
+## Scenario
 
 ![architecture 2](assets/architecture-lab-2.jpg)
+
+The frontend user will be able to join a Teams meeting call, send messages in a chat and use the video call feature. The backend will be responsible to create the chat and the call between the frontend and Azure Communication Services.
 
 To start this lab you will use the code inside `src/acs-to-external`.
 
