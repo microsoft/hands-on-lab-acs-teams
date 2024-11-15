@@ -1,9 +1,9 @@
 ---
 published: true
 type: workshop
-title: Use Azure Communication Services to build a chat application with Teams
+title: Use Azure Communication Services to extend the capabilities of your applications
 short_title:
-description: Discover how to integrate Azure Communication Services with Microsoft Teams to build a chat application.
+description: Discover how to integrate Azure Communication Services with Microsoft Teams and you custom application to build a chat application.
 level: beginner # Required. Can be 'beginner', 'intermediate' or 'advanced'
 navigation_numbering: false
 authors: # Required. You can add as many authors as needed
@@ -13,7 +13,7 @@ contacts: # Required. Must match the number of authors
   - "@lucas.peirone"
   - "@damienaicheh"
 duration_minutes: 240
-tags: azure, azure communication services, microsoft teams, javascript, codespace, devcontainer, csu
+tags: azure, azure communication services, microsoft teams, javascript, codespace, devcontainer, acs, csu
 navigation_levels: 3
 ---
 

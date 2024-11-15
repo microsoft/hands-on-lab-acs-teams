@@ -98,7 +98,7 @@ export class UI {
     this.startVideoButton.disabled = true;
     this.stopVideoButton.disabled = false;
     this.localVideoContainer.hidden = false;
-    this.localVideoContainer.appendChild(view);
+    this.localVideoContainer.appendChild(view.target);
   }
 
   async hideLocalVideo() {
