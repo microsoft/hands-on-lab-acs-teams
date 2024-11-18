@@ -13,6 +13,7 @@ import getEndpointUrl from "./routes/getEndpointUrl.js";
 import getPhoneNumber from "./routes/getPhoneNumber.js";
 import identifyUserFactory from "./routes/identify.js";
 import { inMemory } from "./storage/inMemory.js";
+import cookieParser from "cookie-parser";
 // import refreshToken from './routes/refreshToken.js';
 // import getEndpointUrl from './routes/getEndpointUrl.js';
 // import userConfig from './routes/userConfig.js';
@@ -30,8 +31,28 @@ const storage = inMemory();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Set up CORS options
+const corsOptions = {
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+
+    // Allow requests from any localhost origin
+    if (origin.startsWith("http://localhost")) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+};
+
+// Use CORS middleware with options
+app.use(cors(corsOptions));
+
 app.use(logger("tiny"));
 app.use(express.json({ limit: "50mb" }));
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, "build")));
 app.use("/favicon.ico", (req, res) => {
@@ -42,13 +63,13 @@ app.use("/favicon.ico", (req, res) => {
  * route: /token
  * purpose: Chat,Calling: get ACS token with the given scope
  */
-app.use("/token", cors(), issueToken);
+app.use("/token", issueToken);
 
-app.use("/getEndpointUrl", cors(), getEndpointUrl);
+app.use("/getEndpointUrl", getEndpointUrl);
 
-app.use("/phone", cors(), getPhoneNumber);
+app.use("/phone", getPhoneNumber);
 
-app.use("/login", cors(), identifyUserFactory(storage));
+app.use("/login", identifyUserFactory(storage));
 
 // NOTE : Not to be moved to the top, routes must be declared before the default route
 app.use("/", (req, res) => {

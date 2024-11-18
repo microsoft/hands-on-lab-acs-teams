@@ -15,11 +15,26 @@ const router = Router();
 function parseEmail(req) {
   switch (req.method) {
     case "GET":
-      return req.query.email;
+      return req.cookies?.email ?? req.query?.email;
     case "POST":
-      return req.body.email;
+      return req.cookies?.email ?? req.body.email;
     default:
       return null;
+  }
+}
+/**
+ * Parse the options from the request
+ * @param {Express.Request} req
+ * @returns {{upsert: boolean}} The options from the request
+ */
+function parseOptions(req) {
+  switch (req.method) {
+    case "GET":
+      return { upsert: req.query?.upsert == "true" };
+    case "POST":
+      return { upsert: req.body?.upsert == true };
+    default:
+      return {};
   }
 }
 
@@ -35,9 +50,14 @@ function identifyUserFactory(backend) {
       res.status(400).send("Missing email");
       return;
     }
-
+    const opt = parseOptions(req);
     try {
-      const payload = await identifyUser(backend, emailAddress);
+      const payload = await identifyUser(backend, emailAddress, opt);
+      if (!payload) {
+        res.status(404).send("User not found");
+        return;
+      }
+      res.cookie("email", emailAddress);
       res.send(payload);
     } catch (error) {
       next(error);

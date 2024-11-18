@@ -7,12 +7,16 @@ import { createUserAndToken } from "./createUserAndToken.js";
  * Identify a user based on their email
  * @param {Storage} backend The storage backend to use
  * @param {string} email. The email of the user to identify
- * @returns {Promise<{ acsId: string, token: string, created: boolean }>} The ACS ID of the user and whether the user was created
+ * @param {{upsert: boolean}} opt Options for the operation, upsert will create the user if it doesn't exist. Default is false
+ * @returns {Promise<{ acsId: string, token: string, created: boolean, email: string } | null >} User object
  */
-export async function identifyUser(backend, email) {
+export async function identifyUser(backend, email, opt = { upsert: false }) {
   let exists = backend.has(email);
-  const payload = { acsId: "", token: "default", created: !exists };
+  if (!exists && !opt.upsert) {
+    return null;
+  }
 
+  const payload = { acsId: "", token: "default", created: !exists, email };
   if (!exists) {
     const { user, token } = await createUserAndToken(["chat", "voip"]);
     backend.set(email, { user, token });
