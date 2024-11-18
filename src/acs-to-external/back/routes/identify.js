@@ -15,33 +15,58 @@ const router = Router();
 function parseEmail(req) {
   switch (req.method) {
     case "GET":
-      return req.query.email;
+      return req.cookies?.email ?? req.query?.email;
     case "POST":
-      return req.body.email;
+      return req.cookies?.email ?? req.body.email;
     default:
       return null;
   }
 }
 
 /**
+ * Parse the options from the request
+ * @param {Express.Request} req
+ * @returns {{upsert: boolean}} The options from the request
+ */
+function parseOptions(req) {
+  switch (req.method) {
+    case "GET":
+      return { upsert: req.query?.upsert == "true" };
+    case "POST":
+      return { upsert: req.body?.upsert == true };
+    default:
+      return {};
+  }
+}
+
+/**
  * The hackiest DI I've ever made
  * @param {Storage} backend
- * @returns
+ *
  */
-function identifyUserFactory(backend) {
+function authBuilder(backend) {
   return async (req, res, next) => {
-    const emailAddress = parseEmail(req);
-    if (!emailAddress) {
+    const mail = parseEmail(req);
+    if (!mail) {
       res.status(400).send("Missing email");
       return;
     }
 
+    let user;
     try {
-      const payload = await identifyUser(backend, emailAddress);
-      res.send(payload);
-    } catch (error) {
-      next(error);
+      user = await identifyUser(backend, mail, parseOptions(req));
+    } catch (err) {
+      next(err);
     }
+
+    if (!user) {
+      res.status(404).send("User not found");
+      return;
+    }
+    // If the auth is successful, also return a cookie with the mail
+    // This is used to identify the user in the future
+    res.cookie("email", mail);
+    res.send(user);
   };
 }
 
@@ -49,11 +74,9 @@ export default (backend) => {
   /**
    * route: /login/
    * purpose: Identify a user based on their email
-   * @param email: The email of the user to identify
-   * @returns The ACS ID of the user and whether the user was created
    */
   // This GET route is only for debuging
-  router.get("/", identifyUserFactory(backend));
-  router.post("/", identifyUserFactory(backend));
+  router.get("/", authBuilder(backend));
+  router.post("/", authBuilder(backend));
   return router;
 };

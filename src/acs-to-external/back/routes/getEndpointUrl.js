@@ -4,14 +4,10 @@ const router = express.Router();
 
 /**
  * route: /getEndpointUrl/
- *
  * purpose: Get the endpoint url of Azure Communication Services resource.
- *
  * @returns The endpoint url as string
- *
  */
-
-router.get("/", async function (req, res, next) {
+router.get("/", function (_, res) {
   res.header("Content-Type", "application/json");
   res.send({ endpoint: getEndpoint() });
 });
