@@ -963,6 +963,12 @@ Go back to `http://localhost:8081` in your browser, enter a phone number with th
 
 The `Hang Up` button will stop the call because you already implemented in the `hangsUp` method which is the same for both types of calls.
 
+![Phone Call](./assets/call-a-phone.png)
+
+## Summary Lab 3
+
+In this lab, you have also learned how to use the phone number you bought in the Azure Communication Services resource and how to create a call between your frontend application and a phone number using Azure Communication Services.
+
 [acs-phone-numbers]: https://learn.microsoft.com/en-us/azure/communication-services/quickstarts/telephony/get-phone-number?tabs=linux&pivots=programming-language-javascript#get-purchased-phone-numbers
 [acs-start-call-options]: https://learn.microsoft.com/en-us/javascript/api/azure-communication-services/@azure/communication-calling/startcalloptions?view=azure-communication-services-js
 
