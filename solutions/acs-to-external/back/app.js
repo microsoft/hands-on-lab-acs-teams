@@ -14,13 +14,6 @@ import getPhoneNumber from "./routes/getPhoneNumber.js";
 import identifyUserFactory from "./routes/identify.js";
 import { inMemory } from "./storage/inMemory.js";
 import cookieParser from "cookie-parser";
-// import refreshToken from './routes/refreshToken.js';
-// import getEndpointUrl from './routes/getEndpointUrl.js';
-// import userConfig from './routes/userConfig.js';
-// import createThread from './routes/createThread.js';
-// import addUser from './routes/addUser.js';
-// import createRoom from './routes/createRoom.js';
-// import addUserToRoom from './routes/addUserToRoom.js';
 
 const app = express();
 
@@ -34,9 +27,6 @@ const __dirname = path.dirname(__filename);
 // Set up CORS options
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (like mobile apps or curl requests)
-    if (!origin) return callback(null, true);
-
     // Allow requests from any localhost origin
     if (origin.startsWith("http://localhost")) {
       callback(null, true);
@@ -59,16 +49,16 @@ app.use("/favicon.ico", (req, res) => {
   res.status(204);
 });
 
-/**
- * route: /token
- * purpose: Chat,Calling: get ACS token with the given scope
- */
+/** purpose: Returns a random user with a token */
 app.use("/token", issueToken);
 
+/** purpose: Returns the ACS endpoint URL */
 app.use("/getEndpointUrl", getEndpointUrl);
 
+/** purpose: Returns the first registered phone number in the system */
 app.use("/phone", getPhoneNumber);
 
+/** purpose: Identify a user based on their email. Optionally registers them */
 app.use("/login", identifyUserFactory(storage));
 
 // NOTE : Not to be moved to the top, routes must be declared before the default route
@@ -76,23 +66,6 @@ app.use("/", (req, res) => {
   res.status(200);
   res.end("Everything is OK, but there is nothing to see here");
 });
-
-/**
- * route: /addUser
- * purpose: Remem
- */
-//app.use("/addUser", cors(), addUser);
-
-// Uncomment the following routes as needed:
-
-// app.use("/createThread", cors(), createThread);
-
-// app.use("/refreshToken", cors(), refreshToken);
-// app.use("/getEndpointUrl", cors(), getEndpointUrl);
-// app.use("/userConfig", cors(), userConfig);
-
-// app.use("/createRoom", cors(), createRoom);
-// app.use("/addUserToRoom", cors(), addUserToRoom);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
