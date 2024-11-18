@@ -31,12 +31,7 @@ async function main() {
   gui.toggleLogin();
   gui.showAcsId(acsId);
 
-  const callClient = new CallClient();
-  const creds = new AzureCommunicationTokenCredential(token);
-  let displayName = "ACS user";
-
-  const callAgent = await callClient.createCallAgent(creds, { displayName });
-  const chatClient = new ChatClient(await getEndpointUrl(), creds);
+  // TODO: Create a new instance of the CallClient, callAgent, and ChatClient
 
   const deviceManager = await callClient.getDeviceManager();
   await deviceManager.askDevicePermission({ video: true, audio: true });
