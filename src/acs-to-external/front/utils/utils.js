@@ -1,4 +1,6 @@
-/** @typedef  */
+// @ts-check
+import "./types.js";
+
 /**
  * Returns the a new ACS user token
  * @returns {Promise<{token: string, expiresOn: string, user: {communicationUserId} }>} - The token as string
@@ -31,15 +33,16 @@ export async function getPhoneNumber() {
 /**
  * Attempts to identify a user based on their email
  * @param {string} email - The email of the user to identify
- * @returns {Promise<{ acsId: string, token: string, created: boolean }>} - The ACS ID of the user and whether the user was created
+ * @returns {Promise<User>} - The ACS ID of the user and whether the user was created
  */
-export async function login(email) {
+export async function login(email = "", opt = { upsert: false }) {
   const response = await fetch(`${process.env.BACKEND_URL}/login`, {
     method: "POST",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(Object.assign({ email }, opt)),
   });
   return response.json();
 }

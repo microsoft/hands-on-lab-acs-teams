@@ -1,3 +1,4 @@
+import "./utils/types.js";
 import {
   VideoStreamRenderer,
   LocalVideoStream,
@@ -13,23 +14,18 @@ import {
 } from "./utils/utils.js";
 import { UI } from "./ui/ui.js";
 
-/** @typedef {import("@azure/communication-calling").Call} Call */
-/** @typedef {import("@azure/communication-chat").ChatThreadClient} ChatThreadClient */
-/** @typedef {import("@azure/communication-calling").CallAgent} CallAgent */
-/** @typedef {import("@azure/communication-calling").DeviceManager} DeviceManager */
-
 /** @type {LocalVideoStream} */
 let localVideoStream;
 
 // Toggle this to true in lab 4
-const USE_AUTH = false;
+const USE_AUTH = true;
 
 async function main() {
   const gui = new UI();
-  const { token, acsId } = await handleLogin(gui, USE_AUTH);
+  const user = await handleLogin(gui, USE_AUTH);
   // Remove the login screen which is on by default
   gui.toggleLogin();
-  gui.showAcsId(acsId);
+  gui.displayUserInfo(user);
 
   // TODO: Create a new instance of the CallClient, callAgent, and ChatClient
 
@@ -159,7 +155,7 @@ async function startPhone(phoneNumber, callAgent, gui) {
  * Handles the login process, either by using the email input or by getting a random identity from the backend.
  * @param {UI} gui
  * @param {boolean} useAuth
- * @returns
+ * @returns {Promise<{ token: string, acsId: string, email?: string, created: boolean }>}
  */
 async function handleLogin(gui, useAuth) {
   // If not using auth, get a random identity from the backend
@@ -168,11 +164,19 @@ async function handleLogin(gui, useAuth) {
     return { token: auth.token, acsId: auth.user.communicationUserId };
   }
 
+  // If using auth, try to log in with the email cookie
+  if (document.cookie.includes("email")) {
+    try {
+      return await login();
+    } catch (e) {
+      console.warn("Failed to log in with cookie, trying manual login");
+    }
+  }
   // Only for demo purpose, don't do that in production:
   // Else, blocks until the user 'logs in'
   return new Promise((res) =>
     gui.loginButton.addEventListener("click", (_) =>
-      res(login(gui.emailInput.value))
+      res(login(gui.emailInput.value, { upsert: true }))
     )
   );
 }
