@@ -970,11 +970,11 @@ The `Hang Up` button will stop the call because you already implemented in the `
 
 # Lab 4 - Map Azure Communication Services Users to your own users
 
-In this lab, you will create a user mapping between your own users and the Azure Communication Services users. In fact, in a real world scenario, you will have to map your own users to an identifier of the Azure Communication Services. This is necessary if you want to be able to track the history of the calls, messages, etc.
+In this lab, you will create a user mapping between your own users and the Azure Communication Services users. In fact, in a real world scenario, you will have to map your own users to an identifier of the Azure Communication Services and store it somewhere. This is necessary if you want to be able to track the history of the calls, messages, etc.
 
 ![architecture 4](assets/architecture-lab-4.jpg)
 
-You will use a fake backend server with an in memory database to store the user mapping and simulate the user authentication. Most of the code is already done for you, you just need to implement the identification of the user.
+You will use a fake backend server with an in memory database to store the user mapping and simulate the user authentication, this means that everytime you restart the server the data stored in memory will be lost, this is off course just for the purpose of the lab, in a real project you will have to choose a persistent storage that fit your need. Most of the code is already done for you, you just need to implement the identification of the user.
 
 ## Create a user identification method
 
@@ -982,10 +982,10 @@ As you can see in the `src/acs-to-external/back/svc/identifyUser.js` file, you h
 
 <div class="task" data-title="Task">
 
-> Implement the `identifyUser` method to identify the user and return the Azure Communication Services user identifier.
-> Use the `backend` object to check if the `email` of the user is already in the database
-> If it's not store, use the `createUserAndToken` method to create a user access token for chat and VOIP and store it in the database.
-> Return the payload object defined in the method signature.
+> - Implement the `identifyUser` method to identify the user and return the Azure Communication Services user identifier.
+> - Use the `backend` object to check if the `email` of the user is already in the database
+> - If it's not stored, use the `createUserAndToken` method to create a user access token for chat and VOIP and store it in the database.
+> - Return the payload object defined in the method signature.
 
 </div>
 
@@ -1012,7 +1012,10 @@ export async function identifyUser(backend, email) {
 ```
 
 Here's a step-by-step explanation of what the function does:
-First, we check if the user exists, by checking if the email is already in the database. If it's not, we create a new user and token by calling the `createUserAndToken` method. We then store the user and token in the database. Finally, we return the payload object with the user's communication ID and token.
+
+First, you check if the user exists, by checking if the email is already in the database. If it's not, you create a new user and token by calling the `createUserAndToken` method. You then store the user and token in the database. Finally, you return the payload object with the user's communication ID and token.
+
+</details>
 
 ## Test the new endpoint
 
@@ -1024,13 +1027,21 @@ cd src/acs-to-external/back
 npm start
 ```
 
-You can now test the `/login` endpoint by calling it with the email of a user. You should receive a payload object with the user's communication ID and token.
+You can now test the `http://localhost:8080/login` endpoint by calling it with the email of a user in the body of the request. You should receive a payload object with the user's communication ID and token.
 
 You can test it directly:
 
 ![Test login](assets/test-login.png)
 
-</details>
+## Test the frontend
+
+Let's now enable a basic authentication in the frontend to be able to use the user identification method you just implemented.
+
+In the `src/acs-to-external/front/client.js` file, search for `USE_AUTH` and pass it to `true`.
+
+By doing this, you will enable the authentication in the frontend and you should see an email input field in the frontend:
+
+![Auth frontend](assets/auth-frontend.png)
 
 ---
 
