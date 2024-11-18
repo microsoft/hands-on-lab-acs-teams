@@ -1,3 +1,5 @@
+import "../utils/types.js";
+
 export class UI {
   constructor() {
     // Call UI elements
@@ -28,6 +30,7 @@ export class UI {
     this.emailInput = document.getElementById("email");
     this.loginContainer = document.querySelector(".login-container");
     this.acsIdElement = document.getElementById("acs-id");
+    this.userFlavorText = document.getElementById("display-name");
   }
 
   async dispatch(state) {
@@ -81,8 +84,18 @@ export class UI {
     }
   }
 
-  showAcsId(acsId) {
-    this.acsIdElement.innerText = acsId;
+  /**
+   * Displays the user information
+   * @param {User} user
+   */
+  displayUserInfo(user) {
+    this.acsIdElement.innerText = user.acsId;
+    if (user.email) {
+      const sb = [user.email];
+      const greet = user.created ? "(new user)" : "(existing user)";
+      sb.push(greet);
+      this.userFlavorText.innerText = sb.join(" ");
+    }
   }
 
   renderMessage(message, isSent) {

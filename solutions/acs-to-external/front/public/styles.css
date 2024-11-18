@@ -117,3 +117,16 @@ body {
   outline: none;
   border-color: #007bff;
 }
+
+#identity {
+  border: 2px solid #4a90e2; /* Light blue border */
+  border-radius: 10px; /* Rounded corners */
+  padding: 15px; /* Spacing inside the border */
+  margin: 20px 0; /* Spacing outside the div */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow */
+  background-color: #f9f9f9; /* Light background color */
+}
+
+#identity p {
+  margin: 10px 0; /* Spacing between text lines */
+}
