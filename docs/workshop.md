@@ -54,14 +54,14 @@ You will use this convention for the rest of the scenario:
 ```xml
 <!--If the resource prefix has a dash: -->
 <service-prefix>-<environment>-<region>-<application-name>-<owner>-<instance>
-<!--If the resource does not autorize any special caracters: -->
+<!--If the resource does not autorize any special characters: -->
 <service-prefix><environment><region><application-name><owner><instance>
 ```
 
 <div class="info" data-title="Note">
 
 > Be sure to use **your own values** to have unique names or use your own convention.
-> [Official resource abbreviations][az-abrevation]
+> [Official resource abbreviations][az-abbreviation]
 >
 > Some services like Azure Storage Account or Azure KeyVault have a maximum size of 24 characters and cannot contain special characters, so please consider using relevant abbreviations as small as possible.
 
@@ -228,7 +228,7 @@ To start this lab you will use the code inside `src/add-1-on-1-acs`. The goal of
 
 To do so, you will implement the call and video methods in the frontend application. Everything is already set up for you, you just need to implement the methods inside the `src/add-1-on-1-acs/index.js` file.
 
-The initialisation of the call agent is already done for you, you can look at it in the `src/add-1-on-1-acs/index.js` file inside the `initializeCallAgentButton.onclick` method.
+The initialization of the call agent is already done for you, you can look at it in the `src/add-1-on-1-acs/index.js` file inside the `initializeCallAgentButton.onclick` method.
 
 This is done in 3 steps:
 
@@ -695,7 +695,7 @@ chatClient.stopRealtimeNotifications();
 
 ### Test the chat
 
-You can now start the frontend again by running the following commands:
+To test your implementation, start the frontend again by running the following commands:
 
 ```bash
 cd src/acs-to-external/front
@@ -723,7 +723,7 @@ You will continue to use the code inside the `src/acs-to-external/front/client.j
 
 <div class="tip" data-title="Tips">
 
-> To retreive the local video stream, you can use this code:
+> To retrieve the local video stream, you can use this code:
 >
 > ```javascript
 > // Local video loopback
@@ -792,7 +792,7 @@ The `stopVideo` function is an asynchronous function designed to stop the local 
 
 ### Test the video call
 
-You can now start the frontend again by running the following commands:
+To test your implementation, start the frontend again by running the following commands:
 
 ```bash
 cd src/acs-to-external/front
@@ -953,7 +953,7 @@ Then, the number that you bought is retrieved by calling the `getPhoneNumber` me
 
 ### Test the phone call
 
-You can now start the frontend again by running the following commands:
+To test your implementation, start the frontend again by running the following commands:
 
 ```bash
 cd src/acs-to-external/front
