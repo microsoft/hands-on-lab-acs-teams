@@ -63,7 +63,7 @@ You will use this convention for the rest of the scenario:
 > Be sure to use **your own values** to have unique names or use your own convention.
 > [Official resource abbreviations][az-abrevation]
 >
-> Some services like Azure Storage Account or Azure KeyVault have a maximum size of 24 characters, so please consider using relevant abbreviations as small as possible.
+> Some services like Azure Storage Account or Azure KeyVault have a maximum size of 24 characters and cannot contain special characters, so please consider using relevant abbreviations as small as possible.
 
 </div>
 
@@ -383,6 +383,7 @@ in a second terminal:
 ```bash
 cd src/add-1-on-1-acs
 
+# Note: If you run into an error while running the command below, run the npm install command in the second terminal as well.
 npm run start:user2
 ```
 
@@ -874,6 +875,7 @@ export async function getFirstPhoneNumber() {
   const client = new PhoneNumbersClient(env["ACS_CONNECTION_STRING"]);
   const numbers = await client.listPurchasedPhoneNumbers();
   let firstNumber;
+  // numbers is an async iterable, meaning that only one number is fetched from ACS at a time
   for await (const number of numbers) {
     firstNumber = number;
     break;
@@ -990,7 +992,9 @@ As you can see in the `src/acs-to-external/back/svc/identifyUser.js` file, you h
 
 > - Implement the `identifyUser` method to identify the user and return the Azure Communication Services user identifier.
 > - Use the `backend` object to check if the `email` of the user is already in the database
-> - If it's not stored, use the `createUserAndToken` method to create a user access token for chat and VOIP and store it in the database.
+> - If it doesn't exists, you have two options:
+>   - If the `upsert` option is set to `true`, create a new user access token for chat and VOIP and store it in the database.
+>   - If the `upsert` option is set to `false`, return `null`.
 > - Return the payload object defined in the method signature.
 
 </div>
@@ -1001,10 +1005,13 @@ As you can see in the `src/acs-to-external/back/svc/identifyUser.js` file, you h
 The `identifyUser` method should look like this:
 
 ```javascript
-export async function identifyUser(backend, email) {
+export async function identifyUser(backend, email, opt = { upsert: false }) {
   let exists = backend.has(email);
-  const payload = { acsId: "", token: "default", created: !exists };
+  if (!exists && !opt.upsert) {
+    return null;
+  }
 
+  const payload = { acsId: "", token: "default", created: !exists, email };
   if (!exists) {
     const { user, token } = await createUserAndToken(["chat", "voip"]);
     backend.set(email, { user, token });
