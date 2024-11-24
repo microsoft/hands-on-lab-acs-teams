@@ -1,27 +1,29 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/javascript-node
 {
-    "name": "Node.js",
-    "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
-    "features": {
-      "ghcr.io/devcontainers/features/azure-cli:1": {},
-      "ghcr.io/devcontainers/features/terraform:1": {}
-    },
-    "customizations": {
-      "vscode": {
-        "extensions": [
-          "GitHub.vscode-github-actions",
-          "dbaeumer.vscode-eslint",
-          "esbenp.prettier-vscode"
-        ],
-        "settings": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnSave": true,
-          "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": true
-          }
+  "name": "Node.js",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/azure-cli:1": {},
+    "ghcr.io/devcontainers/features/terraform:1": {},
+    "ghcr.io/devcontainers-extra/features/bash-command:1": {
+      "command": "npm install -g @moaw/cli"
+    }
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.vscode-github-actions",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": true
         }
       }
     }
   }
-  
+}
