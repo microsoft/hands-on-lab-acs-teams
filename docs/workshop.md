@@ -202,7 +202,7 @@ Make sure to select the right subscription and resource group or create one, and
 
 ![create-acs](./assets/create-acs-resource.png)
 
-Click on `Review + create`.
+Click on **Review + create**.
 
 </details>
 
