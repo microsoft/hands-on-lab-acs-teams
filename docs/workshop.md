@@ -205,7 +205,7 @@ Click on `Review + create`.
 
 [az-cli-install]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
 [az-naming-convention]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-naming
-[az-abrevation]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
+[az-abbreviation]: https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/resource-abbreviations
 [az-portal]: https://portal.azure.com
 [vs-code]: https://code.visualstudio.com/
 [docker-desktop]: https://www.docker.com/products/docker-desktop/
