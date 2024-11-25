@@ -10,6 +10,6 @@ import { createUserAndToken } from "./createUserAndToken.js";
  * @param {{upsert: boolean}} opt Options for the operation, upsert will create the user if it doesn't exist. Default is false
  * @returns {Promise<{ acsId: string, token: string, created: boolean, email: string } | null >} User object
  */
-export async function identifyUser(backend, email) {
-  // TODO
+export async function identifyUser(backend, email, opt = { upsert: false }) {
+  // TODO: Implement this function
 }
