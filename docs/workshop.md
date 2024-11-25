@@ -204,6 +204,10 @@ Make sure to select the right subscription and resource group or create one, and
 
 Click on **Review + create**.
 
+You should see the resource creation in progress. Once it's done, click on **Go to resource** to access the resource:
+
+![overview-acs](./assets/acs-resource-created.png)
+
 </details>
 
 [az-cli-install]: https://learn.microsoft.com/en-us/cli/azure/install-azure-cli
