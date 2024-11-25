@@ -8,5 +8,6 @@ import { CommunicationIdentityClient } from "@azure/communication-identity";
  * @returns {Promise<CommunicationUserToken>} The token with the specified scopes
  */
 export async function createUserAndToken(scopes) {
-  // TODO
+  const client = new CommunicationIdentityClient(env["ACS_CONNECTION_STRING"]);
+  return client.createUserAndToken(scopes);
 }

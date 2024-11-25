@@ -11,5 +11,19 @@ import { createUserAndToken } from "./createUserAndToken.js";
  * @returns {Promise<{ acsId: string, token: string, created: boolean, email: string } | null >} User object
  */
 export async function identifyUser(backend, email, opt = { upsert: false }) {
-  // TODO: Implement this function
+  let exists = backend.has(email);
+  if (!exists && !opt.upsert) {
+    return null;
+  }
+
+  const payload = { acsId: "", token: "default", created: !exists, email };
+  if (!exists) {
+    const { user, token } = await createUserAndToken(["chat", "voip"]);
+    backend.set(email, { user, token });
+  }
+
+  const { user, token } = backend.get(email);
+  payload.acsId = user.communicationUserId;
+  payload.token = token;
+  return payload;
 }

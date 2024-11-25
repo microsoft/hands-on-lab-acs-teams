@@ -27,7 +27,12 @@ async function main() {
   gui.toggleLogin();
   gui.displayUserInfo(user);
 
-  // TODO: Create a new instance of the CallClient, callAgent, and ChatClient
+  const callClient = new CallClient();
+  const creds = new AzureCommunicationTokenCredential(token);
+  let displayName = "ACS user";
+
+  const callAgent = await callClient.createCallAgent(creds, { displayName });
+  const chatClient = new ChatClient(await getEndpointUrl(), creds);
 
   const deviceManager = await callClient.getDeviceManager();
   await deviceManager.askDevicePermission({ video: true, audio: true });
@@ -101,7 +106,20 @@ document.addEventListener("DOMContentLoaded", main);
  * @param {UI} gui
  */
 async function startCall(meetingLink, callAgent, chatClient, gui) {
-  // TODO
+  const call = await callAgent.join({ meetingLink }, {});
+
+  call.on("stateChanged", async () => {
+    let isFirstConnection = true;
+    if (call.state === "Connected" && isFirstConnection) {
+      isFirstConnection = false;
+
+      await chatClient.startRealtimeNotifications();
+      chatClient.on("chatMessageReceived", (e) => {
+        const isOwnMessage = e.sender.communicationUserId === "";
+        gui.renderMessage(e.message, isOwnMessage);
+      });
+    }
+  });
 }
 
 /**
@@ -110,7 +128,8 @@ async function startCall(meetingLink, callAgent, chatClient, gui) {
  * @param {ChatClient} chatClient
  */
 async function hangsUp(callAgent, chatClient) {
-  // TODO
+  await callAgent.calls?.[0]?.hangUp();
+  chatClient.stopRealtimeNotifications();
 }
 
 /**
@@ -119,7 +138,7 @@ async function hangsUp(callAgent, chatClient) {
  * @param {string} content
  */
 async function sendMessage(chatThreadClient, content) {
-  // TODO
+  await chatThreadClient.sendMessage({ content });
 }
 
 /**
@@ -129,7 +148,22 @@ async function sendMessage(chatThreadClient, content) {
  * @param {UI} gui
  */
 async function startVideo(callAgent, deviceManager, gui) {
-  // TODO
+  const cameras = await deviceManager.getCameras();
+  if (cameras.length <= 0) {
+    throw new Error("No camera device found on the system");
+  }
+
+  // Local video loopback
+  localVideoStream = new LocalVideoStream(cameras[0]);
+  const renderer = new VideoStreamRenderer(localVideoStream);
+  gui.displayLocalVideo(renderer);
+
+  // Sending video stream to remote
+  const call = callAgent.calls?.[0];
+  if (!call) {
+    throw new Error("No call found");
+  }
+  await call.startVideo(localVideoStream);
 }
 
 /**
@@ -138,7 +172,12 @@ async function startVideo(callAgent, deviceManager, gui) {
  * @param {UI} gui
  */
 async function stopVideo(callAgent, gui) {
-  // TODO
+  // Local video
+  await gui.hideLocalVideo();
+
+  // Stop sending video stream to remote
+  const call = callAgent.calls?.[0];
+  await call.stopVideo(localVideoStream);
 }
 
 /**
@@ -148,7 +187,11 @@ async function stopVideo(callAgent, gui) {
  * @param {gui} gui
  */
 async function startPhone(phoneNumber, callAgent, gui) {
-  // TODO
+  const callingNumber = await getPhoneNumber();
+  console.log(`Calling from ${callingNumber} to ${phoneNumber}`);
+  callAgent.startCall([{ phoneNumber }], {
+    alternateCallerId: { phoneNumber: callingNumber },
+  });
 }
 
 /**

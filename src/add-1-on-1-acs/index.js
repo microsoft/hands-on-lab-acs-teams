@@ -83,7 +83,20 @@ initializeCallAgentButton.onclick = async () => {
  * localVideoStream array to the call method. Once your call connects it will automatically start sending a video stream to the other participant.
  */
 startCallButton.onclick = async () => {
-  // TODO
+  try {
+    const localVideoStream = await createLocalVideoStream();
+    const videoOptions = localVideoStream
+      ? { localVideoStreams: [localVideoStream] }
+      : undefined;
+    call = callAgent.startCall(
+      [{ communicationUserId: calleeAcsUserId.value.trim() }],
+      { videoOptions }
+    );
+    // Subscribe to the call's properties and events.
+    subscribeToCall(call);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
@@ -93,14 +106,25 @@ startCallButton.onclick = async () => {
  * You can pass the local video stream which you want to use to accept the call with.
  */
 acceptCallButton.onclick = async () => {
-  // TODO
+  try {
+    const localVideoStream = await createLocalVideoStream();
+    const videoOptions = localVideoStream
+      ? { localVideoStreams: [localVideoStream] }
+      : undefined;
+    call = await incomingCall.accept({ videoOptions });
+    // Subscribe to the call's properties and events.
+    subscribeToCall(call);
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 /**
  * End current call
  */
 hangUpCallButton.addEventListener("click", async () => {
-  // TODO
+  // end the current call
+  await call.hangUp();
 });
 
 /**

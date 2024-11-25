@@ -134,6 +134,9 @@ The following tools and access will be necessary to run the lab in good conditio
 - [Visual Studio Code][vs-code] installed (you will use Dev Containers)
 - [Node 22][download-node]
 - Npm 10
+- Inside Visual Studio Code, you will need to install the following extensions:
+  - dbaeumer.vscode-eslint
+  - esbenp.prettier-vscode
 
 Once you have set up your local environment, you can clone the Hands-on-lab repository you just forked on your machine, and open the local folder in Visual Studio Code and head to the next step.
 
@@ -1052,9 +1055,27 @@ Let's now enable a basic authentication in the frontend to be able to use the us
 
 In the `src/acs-to-external/front/client.js` file, search for `USE_AUTH` and pass it to `true`.
 
-By doing this, you will enable the authentication in the frontend and you should see an email input field in the frontend:
+By doing this, you will enable the authentication in the frontend and you should see an email input field in the frontend.
+
+You can now start the frontend by running the following commands:
+
+```bash
+cd src/acs-to-external/front
+
+npm start
+```
+
+And go to `http://localhost:8081` in your browser. You should see an email input field in the interface.
 
 ![Auth frontend](assets/auth-frontend.png)
+
+You can now type an email and click on the `Submit` button. You should see the user's communication ID and token in the interface, this means that the user identification method is working.
+
+Now, if you open it in another browser or in an incognito window and type the same email, you should see the same user's communication ID and token. This means that the user is identified and the user mapping is working.
+
+## Summary Lab 4
+
+In this lab, you have learned how to create a user mapping between your own users and the Azure Communication Services users. In a real world scenario, you will have to store this mapping in a persistent storage. You can now build on top of this to create a more complex application and play with additional features of Azure Communication Services.
 
 ---
 
