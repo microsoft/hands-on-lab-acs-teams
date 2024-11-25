@@ -27,8 +27,9 @@ const __dirname = path.dirname(__filename);
 // Set up CORS options
 const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests from any localhost origin
-    if (origin.startsWith("http://localhost")) {
+    // Allow requests from the same origin (in which case it will be undefined)
+    // or any other localhost origin
+    if (!origin || origin.startsWith("http://localhost")) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
