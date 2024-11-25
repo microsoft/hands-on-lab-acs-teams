@@ -1043,11 +1043,11 @@ cd src/acs-to-external/back
 npm start
 ```
 
-You can now test the `http://localhost:8080/login` endpoint by calling it with the email of a user in the body of the request. You should receive a payload object with the user's communication ID and token.
+Go to the `http://localhost:8080/login` endpoint by calling it with the email of a user and `upsert` to `true` in the body of the request. You should receive a payload object with the user's communication ID and token.
 
 You can test it directly:
 
-![Test login](assets/test-login.png)
+![Test login](assets/postman-test-login.png)
 
 ## Test the frontend
 

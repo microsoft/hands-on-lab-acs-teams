@@ -18,7 +18,7 @@ import { UI } from "./ui/ui.js";
 let localVideoStream;
 
 // Toggle this to true in lab 4
-const USE_AUTH = true;
+const USE_AUTH = false;
 
 async function main() {
   const gui = new UI();
@@ -28,7 +28,7 @@ async function main() {
   gui.displayUserInfo(user);
 
   const callClient = new CallClient();
-  const creds = new AzureCommunicationTokenCredential(token);
+  const creds = new AzureCommunicationTokenCredential(user.token);
   let displayName = "ACS user";
 
   const callAgent = await callClient.createCallAgent(creds, { displayName });

@@ -18,7 +18,7 @@ import { UI } from "./ui/ui.js";
 let localVideoStream;
 
 // Toggle this to true in lab 4
-const USE_AUTH = true;
+const USE_AUTH = false;
 
 async function main() {
   const gui = new UI();
