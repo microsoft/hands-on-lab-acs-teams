@@ -29,7 +29,11 @@ const corsOptions = {
   origin: (origin, callback) => {
     // Allow requests from the same origin (in which case it will be undefined)
     // or any other localhost origin
-    if (!origin || origin.startsWith("http://localhost")) {
+    if (
+      !origin ||
+      origin.startsWith("http://localhost") ||
+      origin.includes(".app.github.dev")
+    ) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
