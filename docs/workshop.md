@@ -523,6 +523,7 @@ The next step is to connect the frontend to the backend.
 
 > Inside the `src/acs-to-external/front/client.js` file, implement a part of the `main` method to create a `callClient`, `callAgent` and `chatClient` objects.
 > Use the methods inside the `src/acs-to-external/front/utils` folder in the `utils.js` file to initiate those objects.
+> Use the endpoing `getEndpointUrl()` to create the chat client.
 
 </div>
 
@@ -542,7 +543,7 @@ async function main() {
   // Code before...
 
   const callClient = new CallClient();
-  const creds = new AzureCommunicationTokenCredential(token);
+  const creds = new AzureCommunicationTokenCredential(user.token);
   let displayName = "ACS user";
 
   const callAgent = await callClient.createCallAgent(creds, { displayName });
