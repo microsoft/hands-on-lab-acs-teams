@@ -93,6 +93,7 @@ To retrieve the lab content :
 To use a Github Codespace, you will need :
 
 - [A GitHub Account][github-account]
+- Create a [fork][Repo-fork] of the repository from the **main** branch to help you keep track of your changes
 
 Github Codespace offers the ability to run a complete dev environment (Visual Studio Code, Extensions, Tools, Secure port forwarding etc.) on a dedicated virtual machine.
 The configuration for the environment is defined in the `.devcontainer` folder, making sure everyone gets to develop and practice on identical environments : No more conflict on dependencies or missing tools !
