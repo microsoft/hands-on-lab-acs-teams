@@ -446,7 +446,7 @@ The role of the server is to interract with Azure Communication Services to crea
 
 ### Add the Azure Communication Services connection string
 
-Inside the `src/acs-to-external/back` folder, you will find a `.env.example` file. Rename this file to `.env` and fill in the `ACS_CONNECTION_STRING` with the connection string of your Azure Communication Services resource.
+Inside the `src/acs-to-external/back` folder, you will find a `.env.example` file. **Duplicate** this file and name it `.env` and fill in the `ACS_CONNECTION_STRING` with the connection string of your Azure Communication Services resource.
 
 You can find it in **Settings** > **Keys** tab of your Azure Communication Services resource:
 
@@ -620,7 +620,7 @@ As you can see, you need to check if there is a call in progress and if so, you 
 
 ### Test the call
 
-Inside the `src/acs-to-external/front` folder, you will find a `.env.example` file. Rename this file to `.env` and fill in the `BACKEND_URL` with the URL of your backend server which is `http://localhost:8080` by default. Make sure the backend server is running.
+Inside the `src/acs-to-external/front` folder, you will find a `.env.example` file. **Duplicate** this file and name it `.env` and fill in the `BACKEND_URL` with the URL of your backend server which is `http://localhost:8080` by default. Make sure the backend server is running.
 
 You can now start the frontend by running the following commands:
 
