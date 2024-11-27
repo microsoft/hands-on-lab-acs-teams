@@ -106,20 +106,7 @@ document.addEventListener("DOMContentLoaded", main);
  * @param {UI} gui
  */
 async function startCall(meetingLink, callAgent, chatClient, gui) {
-  const call = await callAgent.join({ meetingLink }, {});
-
-  call.on("stateChanged", async () => {
-    let isFirstConnection = true;
-    if (call.state === "Connected" && isFirstConnection) {
-      isFirstConnection = false;
-
-      await chatClient.startRealtimeNotifications();
-      chatClient.on("chatMessageReceived", (e) => {
-        const isOwnMessage = e.sender.communicationUserId === "";
-        gui.renderMessage(e.message, isOwnMessage);
-      });
-    }
-  });
+   //TODO
 }
 
 /**
@@ -128,8 +115,7 @@ async function startCall(meetingLink, callAgent, chatClient, gui) {
  * @param {ChatClient} chatClient
  */
 async function hangsUp(callAgent, chatClient) {
-  await callAgent.calls?.[0]?.hangUp();
-  chatClient.stopRealtimeNotifications();
+   //TODO
 }
 
 /**
@@ -138,7 +124,7 @@ async function hangsUp(callAgent, chatClient) {
  * @param {string} content
  */
 async function sendMessage(chatThreadClient, content) {
-  await chatThreadClient.sendMessage({ content });
+   //TODO
 }
 
 /**
@@ -148,22 +134,7 @@ async function sendMessage(chatThreadClient, content) {
  * @param {UI} gui
  */
 async function startVideo(callAgent, deviceManager, gui) {
-  const cameras = await deviceManager.getCameras();
-  if (cameras.length <= 0) {
-    throw new Error("No camera device found on the system");
-  }
-
-  // Local video loopback
-  localVideoStream = new LocalVideoStream(cameras[0]);
-  const renderer = new VideoStreamRenderer(localVideoStream);
-  gui.displayLocalVideo(renderer);
-
-  // Sending video stream to remote
-  const call = callAgent.calls?.[0];
-  if (!call) {
-    throw new Error("No call found");
-  }
-  await call.startVideo(localVideoStream);
+   //TODO
 }
 
 /**
@@ -172,12 +143,7 @@ async function startVideo(callAgent, deviceManager, gui) {
  * @param {UI} gui
  */
 async function stopVideo(callAgent, gui) {
-  // Local video
-  await gui.hideLocalVideo();
-
-  // Stop sending video stream to remote
-  const call = callAgent.calls?.[0];
-  await call.stopVideo(localVideoStream);
+   //TODO
 }
 
 /**
