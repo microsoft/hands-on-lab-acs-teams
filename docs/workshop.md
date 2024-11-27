@@ -622,6 +622,12 @@ As you can see, you need to check if there is a call in progress and if so, you 
 
 Inside the `src/acs-to-external/front` folder, you will find a `.env.example` file. **Duplicate** this file and name it `.env` and fill in the `BACKEND_URL` with the URL of your backend server which is `http://localhost:8080` by default. Make sure the backend server is running.
 
+<div class="tip" data-title="Tips">
+
+> In you are using GitHub CodeSpaces, go in the `Ports` tab and set the backend port visibility to public by right clicking on the port and selecting `Port visibility -> Public`.
+
+</div>
+
 You can now start the frontend by running the following commands:
 
 ```bash
