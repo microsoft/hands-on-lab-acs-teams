@@ -106,7 +106,10 @@ document.addEventListener("DOMContentLoaded", main);
  * @param {UI} gui
  */
 async function startCall(meetingLink, callAgent, chatClient, gui) {
-   //TODO
+  //TODO
+  throw new Error(
+    "You must implement the startCall function before doing this !"
+  );
 }
 
 /**
@@ -115,7 +118,10 @@ async function startCall(meetingLink, callAgent, chatClient, gui) {
  * @param {ChatClient} chatClient
  */
 async function hangsUp(callAgent, chatClient) {
-   //TODO
+  //TODO
+  throw new Error(
+    "You must implement the hangsUp function before doing this !!"
+  );
 }
 
 /**
@@ -124,7 +130,10 @@ async function hangsUp(callAgent, chatClient) {
  * @param {string} content
  */
 async function sendMessage(chatThreadClient, content) {
-   //TODO
+  //TODO
+  throw new Error(
+    "You must implement the sendMessage function before doing this ! !"
+  );
 }
 
 /**
@@ -134,7 +143,10 @@ async function sendMessage(chatThreadClient, content) {
  * @param {UI} gui
  */
 async function startVideo(callAgent, deviceManager, gui) {
-   //TODO
+  //TODO
+  throw new Error(
+    "You must implement the startVideo function before doing this ! !"
+  );
 }
 
 /**
@@ -143,7 +155,10 @@ async function startVideo(callAgent, deviceManager, gui) {
  * @param {UI} gui
  */
 async function stopVideo(callAgent, gui) {
-   //TODO
+  //TODO
+  throw new Error(
+    "You must implement the stopVideo function before doing this ! !"
+  );
 }
 
 /**

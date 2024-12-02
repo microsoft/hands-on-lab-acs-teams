@@ -84,6 +84,7 @@ initializeCallAgentButton.onclick = async () => {
  */
 startCallButton.onclick = async () => {
   //TODO
+  throw new Error(" You must implement the Start Call Button method ! ");
 };
 
 /**
@@ -94,6 +95,7 @@ startCallButton.onclick = async () => {
  */
 acceptCallButton.onclick = async () => {
   //TODO
+  throw new Error(" You must implement the Accept Call Button method ! ");
 };
 
 /**
@@ -101,6 +103,7 @@ acceptCallButton.onclick = async () => {
  */
 hangUpCallButton.addEventListener("click", async () => {
   //TODO
+  throw new Error(" You must implement the Hang Up Call Button method ! ");
 });
 
 /**
